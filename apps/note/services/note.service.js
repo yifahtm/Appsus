@@ -3,8 +3,8 @@ import { utilService } from './util.service.js'
 import { storageService } from './async-storage.service.js'
 
 const NOTE_KEY = 'noteDB'
-_createNotes()
-const notes = [
+
+const gNotes = [
     {
         id: 'n101',
         createdAt: 1112222,
@@ -46,6 +46,7 @@ const notes = [
         }
     }
 ]
+_createNotes()
 
 export const noteService = {
     query,
@@ -124,10 +125,10 @@ function getFilterFromParams(searchParams = {}) {
 function _createNotes() {
     let notes = utilService.loadFromStorage(NOTE_KEY)
     if (!notes || !notes.length) {
-        notes = []
-        notes.push(_createNote('audu', 300))
-        notes.push(_createNote('fiak', 120))
-        notes.push(_createNote('subali', 50))
+        notes = gNotes
+        // notes.push(_createNote('audu', 300))
+        // notes.push(_createNote('fiak', 120))
+        // notes.push(_createNote('subali', 50))
         utilService.saveToStorage(NOTE_KEY, notes)
     }
 }
