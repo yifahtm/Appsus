@@ -8,6 +8,7 @@ export function MailDetails() {
     const [isLoading, setIsLoading] = useState(true)
     const [mail, setMail] = useState(null)
 
+    //use effect
     const params = useParams()
     const navigate = useNavigate()
 

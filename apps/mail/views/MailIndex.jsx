@@ -56,6 +56,7 @@ export function MailIndex() {
     return (
         <section className="mail-container">
             <h1>Mail app</h1>
+            <div class="side-nav"></div>
             <MailList mails={mails} onRemoveMail={onRemoveMail} />
             {isOnCompose && (< MailCompose sendMail={sendMail} onCloseCompose={onCloseCompose}/>)}
             <button onClick={() => setIsOnCompose(true)}>New Mail</button>
