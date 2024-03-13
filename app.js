@@ -1,4 +1,7 @@
-console.log('hi')
+function check() {
+    console.log('hi')
+}
+
 
 import { App } from './RootCmp.jsx'
 const elContainer = document.getElementById('root')
