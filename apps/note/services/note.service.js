@@ -97,6 +97,7 @@ function remove(noteId) {
 }
 
 function save(note) {
+    console.log(note)
     if (note.id) {
         return storageService.put(NOTE_KEY, note)
     } else {
@@ -105,8 +106,8 @@ function save(note) {
     }
 }
 
-function getEmptyNote(title = '', createdAt = '') {
-    return { title, createdAt }
+function getEmptyNote(title = '', createdAt = '', desc = '') {
+    return { title, createdAt, desc }
 }
 
 function getDefaultFilter() {

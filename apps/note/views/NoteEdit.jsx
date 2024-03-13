@@ -2,7 +2,7 @@ const { useState, useEffect, useRef } = React
 const { useNavigate, useParams } = ReactRouter
 
 import { noteService } from "../services/note.service.js"
-import { showErrorMsg, showSuccessMsg } from "../services/event-bus.service.js"
+import { showErrorMsg, showSuccessMsg, showUserMsg } from "../../../services/event-bus.service.js"
 
 
 export function NoteEdit() {
@@ -20,9 +20,12 @@ export function NoteEdit() {
 
     function loadNote() {
         noteService.get(noteId)
-            .then(note => setNoteToEdit(note))
+            .then(note => {
+                setNoteToEdit(note)
+            })
             .catch(err => {
                 console.log('Had issues loading note', err)
+                showUserMsg(`Could not load`)
                 navigate('/note')
             })
     }
@@ -33,8 +36,10 @@ export function NoteEdit() {
 
         noteService.save(noteToEdit)
             .then(savedNote => {
+                console.log(savedNote)
+                showSuccessMsg(`Note saved successfully ${savedNote.id}`)
+                // eventBusService.emit('note-updated')
                 navigate('/note')
-                showSuccessMsg('Note saved successfully')
             })
             .catch(err => {
                 console.log('Had issues saving note', err)
@@ -44,12 +49,11 @@ export function NoteEdit() {
     }
 
     function handleChange({ target }) {
-        const field = target.name
-        let value = target.value
-
-        switch (target.type) {
+        let { value, name: field, type } = target
+        switch (type) {
             case 'number':
             case 'range':
+            case 'date':
                 value = +value || ''
                 break
 
@@ -61,47 +65,53 @@ export function NoteEdit() {
                 break
         }
 
-        setNoteToEdit(prevNoteToEdit => ({ ...prevNoteToEdit, [field]: value }))
+        setNoteToEdit(prevNoteToEdit => ({ ...prevNoteToEdit, [field]: value || '' }))
     }
 
     const { title, createdAt, desc } = noteToEdit
+    if (!noteToEdit || typeof noteToEdit.title === 'undefined') return <div>Loading details..</div>
     return (
         <section className="note-edit">
-            <form onSubmit={onSaveNote} >
-                <label htmlFor="note-title">Title:</label>
-                <input
-                    type="text"
-                    id="note-title"
-                    placeholder="Enter title"
-                    ref={inputRef}
+            <h3>Edit Note</h3>
+            <form className="note-edit flex column" onSubmit={onSaveNote} >
+                <div className="input-container flex align-center">
+                    <label htmlFor="note-title">Title:</label>
+                    <input
+                        type="text"
+                        id="note-title"
+                        placeholder="Enter title"
+                        ref={inputRef}
 
-                    name="title"
-                    onChange={handleChange}
-                    value={title}
-                />
+                        name="title"
+                        onChange={handleChange}
+                        value={title || ''}
+                    />
+                </div>
+                {/* <div className="input-container flex align-center">
+                    <label htmlFor="note-created-at">Created at:</label>
+                    <input
+                        type="date"
+                        id="note-created-at"
+                        placeholder="Enter creation time"
 
-                {/* <label htmlFor="note-created-at">Created at:</label>
-                <input
-                    type="number"
-                    id="note-created-at"
-                    placeholder="Enter creation time"
+                        name="createdAt"
+                        onChange={handleChange}
+                        value={createdAt}
+                    />
+                </div> */}
+                <div className="input-container flex align-center">
+                    <label htmlFor="note-desc">Description:</label>
+                    <input
+                        type="text"
+                        id="note-desc"
+                        placeholder="Enter description"
+                        ref={inputRef}
 
-                    name="note-created-at"
-                    onChange={handleChange}
-                    value={createdAt}
-                /> */}
-                <label htmlFor="note-desc">Description:</label>
-                <input
-                    type="text"
-                    id="note-desc"
-                    placeholder="Enter description"
-                    ref={inputRef}
-
-                    name="note-desc"
-                    onChange={handleChange}
-                    value={desc}
-                />
-
+                        name="desc"
+                        onChange={handleChange}
+                        value={desc}
+                    />
+                </div>
 
                 <button>Save</button>
             </form>
