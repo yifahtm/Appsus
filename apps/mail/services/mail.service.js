@@ -48,7 +48,6 @@ function remove(mailId) {
 }
 
 function save(mail) {
-    console.log(mail)
     let newMail = _createMail(mail)
     return storageService.post(MAIL_KEY, newMail)
 }

@@ -9,16 +9,18 @@ export function MailIndex() {
     const [mails, setMails] = useState(null)
     const [filterBy, setFilterBy] = useState()
     const [isOnCompose, setIsOnCompose] = useState(false)
+    const [isSent,setIsSent]= useState(false) 
 
     useEffect(() => {
         loadMails()
-    }, [])
+    }, [isSent])
     // //filter by in the empty array
     function loadMails() {
         mailService
             .query()
             .then(setMails)
             .catch(err => console.log('Had issues with loading mails: ', err))
+            .finally(setIsSent(false))
     }
 
     function onRemoveMail(mailId) {
@@ -43,6 +45,7 @@ export function MailIndex() {
                 console.log('Had issues with saving mail: ', err)
             })
         .finally(() => setIsOnCompose(false))
+        .finally(() => setIsSent(true))
         loadMails()
     }
 
