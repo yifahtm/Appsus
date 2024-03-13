@@ -1,6 +1,6 @@
 const { useState, useEffect } = React
 const { useParams, useNavigate } = ReactRouter
-
+const { Link } = ReactRouterDOM
 
 import { mailService } from '../services/mail.service.js'
 
@@ -35,6 +35,9 @@ export function MailDetails() {
             <h2>{mail.to}</h2>
             <p>{mail.body}</p>
             <button>remove</button>
+            <Link to="/mail">
+                <button>Go back</button>
+            </Link>
         </div>
 
     )

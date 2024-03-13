@@ -34,7 +34,7 @@ function query(filterBy = getDefaultFilter()) {
             //     const regex = new RegExp(filterBy.desc, 'i')
             //     cars = cars.filter(car => regex.test(car.desc))
             // }
-            return mails    
+            return mails
         })
 }
 
@@ -56,12 +56,17 @@ function save(mail) {
     }
 }
 
-function getEmptyMail(vendor = '', maxSpeed = '') {
-    return { vendor, maxSpeed }
+function getEmptyMail() {
+    return {
+        to: '',
+        from: loggedInUser.email,
+        subject: '',
+        body: ''
+    }
 }
 
 function getDefaultFilter() {
-    return { txt: '', minSpeed: 50, desc: '' }
+    return { search: '', read: true }
 }
 
 

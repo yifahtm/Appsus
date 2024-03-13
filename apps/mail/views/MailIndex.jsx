@@ -3,7 +3,7 @@ const { Link } = ReactRouterDOM
 
 import { mailService } from '../services/mail.service.js'
 import { MailList } from '../cmps/MailList.jsx'
-
+import { MailCompose } from '../cmps/MailCompose.jsx'
 
 export function MailIndex() {
     const [mails, setMails] = useState(null)
@@ -38,6 +38,7 @@ export function MailIndex() {
         <section className="mail-container">
             <h1>Mail app</h1>
             <MailList mails={mails} onRemoveMail={onRemoveMail} />
+            <MailCompose/>
         </section>
     )
 }
