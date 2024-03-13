@@ -14,7 +14,7 @@ export const mailService = {
     getDefaultFilter
 }
 
-_createBooks()
+_createMails()
 
 const loggedInUser = { email: 'user@appsus.com', fullname: 'Mahatma Appsus' }
 
@@ -66,7 +66,7 @@ function getDefaultFilter() {
 }
 
 
-function _createBooks() {
+function _createMails() {
     let mails = utilService.loadFromStorage(MAIL_KEY)
     if (!mails || !mails.length) {
         mails = [{
@@ -99,5 +99,6 @@ function _createBooks() {
             from: 'user@appsus.com',
             to: 'dingo@momo.com'
         },]
+        utilService.saveToStorage(MAIL_KEY, mails)
     }
 }
