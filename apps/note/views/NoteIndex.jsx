@@ -3,7 +3,7 @@ const { Link, useSearchParams } = ReactRouterDOM
 
 import { NotePreview } from '../cmps/NotePreview.jsx'
 // import { NoteFilter } from './../cmps/NoteFilter.jsx'
-// import { CarFilterDesc } from './../cmps/CarFilterDesc.jsx'
+// import { NOteFilterDesc } from './../cmps/NoteFilterDesc.jsx'
 
 import { noteService } from './../services/note.service.js'
 import { showErrorMsg, showSuccessMsg } from '../services/event-bus.service.js'
@@ -57,8 +57,8 @@ export function NoteIndex() {
             })
     }
 
-    // console.log('cars from car index', cars)
-    // console.log('selectedCar from car index', selectedCar)
+    // console.log('notes from note index', notes)
+    // console.log('selectedNote from note index', selectedNote)
     const { title, createdAt, desc } = filterBy
     if (!notes) return <div>loading...</div>
     return <section className="note-index">
@@ -66,22 +66,26 @@ export function NoteIndex() {
             onSetFilter={onSetFilter}
             filterBy={{ txt, minSpeed }} /> */}
 
-        {/* <CarFilterDesc
+        {/* <NoteFilterDesc
             onSetFilter={onSetFilter}
             filterBy={{ desc }} /> */}
 
-        {/* <Link to="/note/edit"><button>Add a note</button></Link> */}
-        {/* <Link to={`/note/${note.id}`}> */}
-        <NotePreview
-            notes={notes}
-            onRemoveNote={onRemoveNote}
-            onUpdateNote={onUpdateNote}
-        />
-        <div className="note-actions">
-            <button className="remove-btn" onClick={() => onRemoveNote(note.id)}>X</button>
+        <Link to="/note/edit"><button>Add a note</button></Link>
+        <article className="note-container">
+            {notes.map(note => <React.Fragment><li key={note.id}></li>
+                <Link to={`/note/edit/?${note.id}`}>
+                    <NotePreview
+                        notes={notes}
+                        onRemoveNote={onRemoveNote}
+                        onUpdateNote={onUpdateNote}
+                    />
+                </Link></React.Fragment>)}
+            {/* <div className="note-actions">
+            <button className="remove-btn" onClick={() => onRemoveNote(note.id)}>X</button> */}
 
-            {/* <Link to={`/car/edit/${car.id}`}><button>Edit car</button></Link> */}
-        </div>
-        {/* </Link> */}
+            {/* <Link to={`/note/edit/${note.id}`}><button>Edit note</button></Link> */}
+            {/* </div> */}
+            {/* </Link> */}
+        </article>
     </section >
 }

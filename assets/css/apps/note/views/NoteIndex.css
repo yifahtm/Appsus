@@ -1,1 +1,78 @@
  /* note index */
+ * {
+     margin: 0;
+     padding: 0;
+     font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+     box-sizing: border-box;
+ }
+
+ button:hover {
+     cursor: pointer;
+     opacity: 0.8;
+ }
+
+ body {
+     min-height: 100vh;
+     margin: 0;
+
+ }
+
+ h1,
+
+
+ /* ? */
+ .note-container {
+     padding: 15px;
+     margin: auto;
+     columns: 220px 4;
+ }
+
+ /* ? */
+ .note-preview {
+     z-index: 1;
+     position: relative;
+     break-inside: avoid;
+     margin-bottom: 15px;
+     border: 2px solid black;
+     display: grid;
+     border-radius: 15px;
+     background-color: rgba(255, 255, 255, 0.767);
+     padding: 0 1em;
+ }
+
+ .note-preview h2 {
+     margin-top: .5em;
+ }
+
+ .note-preview h3 {
+     font-size: 1em;
+     text-transform: uppercase;
+ }
+
+ .note-preview p {
+     margin: .5em 0;
+ }
+
+ .note-preview img {
+     z-index: -1;
+     position: absolute;
+     top: .5em;
+     right: 1em;
+     width: 40%;
+ }
+
+ /* .card-bottom-content {
+     display: flex;
+     align-items: center;
+     justify-content: space-between;
+     margin: 1em 0;
+ }
+
+ .card-bottom-content button {
+     padding: .5em .7em;
+     background: white;
+     border: 1px solid gray;
+     border-radius: 0.6em;
+     font-size: 0.75em;
+     border-radius: 5px;
+ } */

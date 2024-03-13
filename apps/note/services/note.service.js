@@ -88,7 +88,7 @@ function query(filterBy = getDefaultFilter()) {
 
 function get(noteId) {
     return storageService.get(NOTE_KEY, noteId)
-        .then(note => _setNextPrevCarId(note))
+        .then(note => _setNextPrevNoteId(note))
     // return axios.get(CAR_KEY, carId)
 }
 
@@ -100,7 +100,7 @@ function save(note) {
     if (note.id) {
         return storageService.put(NOTE_KEY, note)
     } else {
-        note = _createNote(note.info.title, note.createdAt)
+        note = _createNote(note.title, note.createdAt)
         return storageService.post(NOTE_KEY, note)
     }
 }
@@ -142,11 +142,11 @@ function _createNote(title, createdAt = 250) {
 
 function _setNextPrevNoteId(note) {
     return storageService.query(NOTE_KEY).then((notes) => {
-        const noteIdx = notes.findIndex((currNote) => currNote.id === car.id)
+        const noteIdx = notes.findIndex((currNote) => currNote.id === note.id)
         const nextNote = notes[noteIdx + 1] ? notes[noteIdx + 1] : notes[0]
         const prevNote = notes[noteIdx - 1] ? notes[noteIdx - 1] : notes[notes.length - 1]
-        car.nextNoteId = nextNote.id
-        car.prevNoteId = prevNote.id
+        note.nextNoteId = nextNote.id
+        note.prevNoteId = prevNote.id
         return note
     })
 }

@@ -9,13 +9,12 @@ export function NotePreview({ notes, onRemoveNote, onUpdateNote }) {
                 <h2>{note.title}</h2>
                 <h5>Created at: {note.createdAt}</h5>
                 <p>{note.info.desc}</p>
-                <img src={`assets/img/audi.jpg`} />
-                {/* Include other details and operations for each note */}
+                {/* <img src={`assets/img/audi.jpg`} /> */}
             </div>
             <div className="note-actions">
                 <button className="remove-btn" onClick={() => onRemoveNote(note.id)}>X</button>
 
-                {/* <Link to={`/car/edit/${car.id}`}><button>Edit car</button></Link> */}
+                <Link to={`/note/edit/${note.id}`}><button>Edit note</button></Link>
             </div>
         </React.Fragment>
         ))}
