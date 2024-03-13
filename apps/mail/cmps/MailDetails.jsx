@@ -9,7 +9,12 @@ export function MailDetails() {
     const [mail, setMail] = useState(null)
 
     const params = useParams()
+    const navigate = useNavigate()
 
+    function removeMail() {
+        mailService.remove(params.mailId)
+            .then(navigate('/mail'))
+    }
 
     useEffect(() => {
         loadMail()
@@ -34,7 +39,7 @@ export function MailDetails() {
             <h1>{mail.subject}</h1>
             <h2>{mail.to}</h2>
             <p>{mail.body}</p>
-            <button>remove</button>
+            <button onClick={removeMail}>remove</button>
             <Link to="/mail">
                 <button>Go back</button>
             </Link>
