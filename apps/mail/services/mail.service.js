@@ -1,19 +1,22 @@
 
-import { utilService } from '../services/utilService.js'
-import { storageService } from '../services/async-storage.service.js'
+import { utilService } from '../../../services/util.service.js'
+import { storageService } from '../../../services/async-storage.service.js'
+// import { storageService } from '.../se'
 
 const MAIL_KEY = 'mailDB'
 
-export const carService = {
+export const mailService = {
     query,
     get,
     remove,
     save,
-    getEmptyCar,
+    getEmptyMail,
     getDefaultFilter
 }
 
 _createBooks()
+
+const loggedInUser = { email: 'user@appsus.com', fullname: 'Mahatma Appsus' }
 
 function query(filterBy = getDefaultFilter()) {
 
@@ -31,7 +34,7 @@ function query(filterBy = getDefaultFilter()) {
             //     const regex = new RegExp(filterBy.desc, 'i')
             //     cars = cars.filter(car => regex.test(car.desc))
             // }
-            return mails
+            return mails    
         })
 }
 
@@ -54,7 +57,7 @@ function save(mail) {
     }
 }
 
-function getEmptyCar(vendor = '', maxSpeed = '') {
+function getEmptyMail(vendor = '', maxSpeed = '') {
     return { vendor, maxSpeed }
 }
 
