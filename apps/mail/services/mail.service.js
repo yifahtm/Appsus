@@ -40,7 +40,6 @@ function query(filterBy = getDefaultFilter()) {
 
 function get(mailId) {
     return storageService.get(MAIL_KEY, mailId)
-        .then(mail => _setNextPrevCarId(mail))
 }
 
 

@@ -10,25 +10,30 @@ export function MailDetails() {
 
     const params = useParams()
 
-    // useEffect(() => {
-    //     loadMail()
-    //   }, [params.mailId])
-    
-    //   function loadMail() {
-    //     setIsLoading(true)
-    //     mailService
-    //       .get(params.mailId)
-    //       .then(setMail)
-    //       .catch(err => {
-    //         console.log('Had issues with loading mail:', err)
-    //         navigate('/mail')
-    //       })
-    //       .finally(() => setIsLoading(false))
-    //   }
-    
+
+    useEffect(() => {
+        loadMail()
+    }, [params.mailId])
+
+    function loadMail() {
+        setIsLoading(true)
+        mailService
+            .get(params.mailId)
+            .then(setMail)
+            .catch(err => {
+                console.log('Had issues with loading', err)
+                navigate('/mail')
+            })
+            .finally(() => setIsLoading(false))
+    }
+
+    if (isLoading) return <div>Loading...</div>
+
     return (
         <div>
-            <h1>mail detail</h1>
+            <h1>{mail.subject}</h1>
+            <h2>{mail.to}</h2>
+            <p>{mail.body}</p>
             <button>remove</button>
         </div>
 
