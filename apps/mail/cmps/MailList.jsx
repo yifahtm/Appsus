@@ -13,13 +13,10 @@ export function MailList({ mails, onRemoveMail }) {
               <MailPreview mail={mail} />
     
               <div className="book-actions">
-                {/* <Link to={`/book/edit/${book.id}`}>
-                  <button>Update</button>
-                </Link> */}
-    
-                {/* <Link to={`/book/${book.id}`}>
+
+                <Link to={`/mail/${mail.id}`}>
                   <button>Details</button>
-                </Link> */}
+                </Link>
     
                 <button onClick={() => onRemoveMail(mail.id)}>Remove</button>
               </div>
