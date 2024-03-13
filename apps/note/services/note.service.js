@@ -125,9 +125,9 @@ function _createNotes() {
     let notes = utilService.loadFromStorage(NOTE_KEY)
     if (!notes || !notes.length) {
         notes = []
-        notes.push(_createCar('audu', 300))
-        notes.push(_createCar('fiak', 120))
-        notes.push(_createCar('subali', 50))
+        notes.push(_createNote('audu', 300))
+        notes.push(_createNote('fiak', 120))
+        notes.push(_createNote('subali', 50))
         utilService.saveToStorage(NOTE_KEY, notes)
     }
 }
