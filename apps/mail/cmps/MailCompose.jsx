@@ -1,12 +1,10 @@
 const { useState, useEffect } = React
 import { mailService } from '../services/mail.service.js'
 
-export function MailCompose() {
+export function MailCompose({ onSendMail }) {
     const [mailToEdit, setMailToEdit] = useState(mailService.getEmptyMail())
 
-    function onSendMail(ev) {
-        ev.preventDefault()
-    }
+
 
     function handleInput({ target }) {
         let { value, name: field, type } = target
@@ -47,7 +45,7 @@ export function MailCompose() {
                 <div className="input-container">
                     <label htmlFor="to">to</label>
                     <input
-                        type="text"
+                        type="email"
                         id="to"
                         placeholder="to"
                         name="to"

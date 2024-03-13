@@ -14,11 +14,11 @@ export function MailIndex() {
     }, [])
     // //filter by in the empty array
 
+    console.log(mails)
     function loadMails() {
         mailService
             .query()
             .then(setMails)
-            // .then(setMails)
             .catch(err => console.log('Had issues with loading mails: ', err))
     }
 
@@ -33,12 +33,27 @@ export function MailIndex() {
             })
     }
 
+    function onSendMail(ev,mailToEdit) {
+        ev.preventDefault()
+
+        console.log(mailToEdit)
+
+        // mailService
+        //     .save(mailToEdit)
+        //     .then(savedMail => {
+        //         console.log(`Book saved successfully ${savedMail.id}`)
+        //     })
+        //     .catch(err => {
+        //         console.log('Had issues with saving mail: ', err)
+        //     })
+    }
+
 
     return (
         <section className="mail-container">
             <h1>Mail app</h1>
             <MailList mails={mails} onRemoveMail={onRemoveMail} />
-            <MailCompose/>
+            <MailCompose onSendMail={onSendMail}/>
         </section>
     )
 }

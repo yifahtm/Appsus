@@ -51,9 +51,18 @@ function save(mail) {
     if (mail.id) {
         return storageService.put(MAIL_KEY, mail)
     } else {
-        car = _createMail()
+        mail = _createMail(mail.subject, mail.to, mail.body)
         return storageService.post(MAIL_KEY, mail)
     }
+}
+
+
+function _createMail(subject, to, body) {
+    const mail = getEmptyMail()
+
+    mail.subject = subject
+    mail.to = to
+    mail.body = body
 }
 
 function getEmptyMail() {
