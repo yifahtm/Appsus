@@ -8,13 +8,14 @@ import { MailCompose } from '../cmps/MailCompose.jsx'
 export function MailIndex() {
     const [mails, setMails] = useState(null)
     const [filterBy, setFilterBy] = useState()
+    const [isOnCompose, setIsOnCompose] = useState(false)
 
     useEffect(() => {
         loadMails()
     }, [])
     // //filter by in the empty array
 
-    console.log(mails)
+
     function loadMails() {
         mailService
             .query()
@@ -33,9 +34,8 @@ export function MailIndex() {
             })
     }
 
-    function onSendMail(ev,mailToEdit) {
+    function onSendMail(ev, mailToEdit) {
         ev.preventDefault()
-
         console.log(mailToEdit)
 
         // mailService
@@ -48,14 +48,17 @@ export function MailIndex() {
         //     })
     }
 
+    function onCloseCompose(){
+        setIsOnCompose(false) 
+    }
 
     return (
         <section className="mail-container">
             <h1>Mail app</h1>
             <MailList mails={mails} onRemoveMail={onRemoveMail} />
-            <MailCompose onSendMail={onSendMail}/>
+            {isOnCompose && (< MailCompose onSendMail={onSendMail} onCloseCompose={onCloseCompose}/>)}
+            <button onClick={() => setIsOnCompose(true)}>New Mail</button>
         </section>
     )
 }
 
-// onRemoveMail={onRemoveMail}

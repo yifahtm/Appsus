@@ -1,7 +1,7 @@
 const { useState, useEffect } = React
 import { mailService } from '../services/mail.service.js'
 
-export function MailCompose({ onSendMail }) {
+export function MailCompose({onSendMail,onCloseCompose}) {
     const [mailToEdit, setMailToEdit] = useState(mailService.getEmptyMail())
 
 
@@ -17,6 +17,7 @@ export function MailCompose({ onSendMail }) {
 
     return (
         <div className="mail-compose">
+            <button onClick={onCloseCompose}>x</button>
             <form onSubmit={onSendMail}>
                 <div className="input-container">
                     <label htmlFor="subject">subject</label>
