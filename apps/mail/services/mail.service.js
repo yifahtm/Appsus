@@ -14,7 +14,7 @@ export const mailService = {
     getDefaultFilter
 }
 
-_createBooks()
+_createMails()
 
 const loggedInUser = { email: 'user@appsus.com', fullname: 'Mahatma Appsus' }
 
@@ -34,13 +34,12 @@ function query(filterBy = getDefaultFilter()) {
             //     const regex = new RegExp(filterBy.desc, 'i')
             //     cars = cars.filter(car => regex.test(car.desc))
             // }
-            return mails    
+            return mails
         })
 }
 
 function get(mailId) {
     return storageService.get(MAIL_KEY, mailId)
-        .then(mail => _setNextPrevCarId(mail))
 }
 
 
@@ -57,16 +56,21 @@ function save(mail) {
     }
 }
 
-function getEmptyMail(vendor = '', maxSpeed = '') {
-    return { vendor, maxSpeed }
+function getEmptyMail() {
+    return {
+        to: '',
+        from: loggedInUser.email,
+        subject: '',
+        body: ''
+    }
 }
 
 function getDefaultFilter() {
-    return { txt: '', minSpeed: 50, desc: '' }
+    return { search: '', read: true }
 }
 
 
-function _createBooks() {
+function _createMails() {
     let mails = utilService.loadFromStorage(MAIL_KEY)
     if (!mails || !mails.length) {
         mails = [{
@@ -99,5 +103,6 @@ function _createBooks() {
             from: 'user@appsus.com',
             to: 'dingo@momo.com'
         },]
+        utilService.saveToStorage(MAIL_KEY, mails)
     }
 }
