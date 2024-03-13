@@ -71,11 +71,17 @@ export function NoteIndex() {
             filterBy={{ desc }} /> */}
 
         {/* <Link to="/note/edit"><button>Add a note</button></Link> */}
-        {/* <DataTable cars={cars} onRemoveCar={onRemoveCar} /> */}
+        {/* <Link to={`/note/${note.id}`}> */}
         <NotePreview
             notes={notes}
             onRemoveNote={onRemoveNote}
             onUpdateNote={onUpdateNote}
         />
+        <div className="note-actions">
+            <button className="remove-btn" onClick={() => onRemoveNote(note.id)}>X</button>
+
+            {/* <Link to={`/car/edit/${car.id}`}><button>Edit car</button></Link> */}
+        </div>
+        {/* </Link> */}
     </section >
 }
