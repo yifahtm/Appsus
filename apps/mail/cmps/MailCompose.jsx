@@ -1,9 +1,13 @@
 const { useState, useEffect } = React
 import { mailService } from '../services/mail.service.js'
 
-export function MailCompose({onSendMail,onCloseCompose}) {
+export function MailCompose({ sendMail, onCloseCompose }) {
     const [mailToEdit, setMailToEdit] = useState(mailService.getEmptyMail())
 
+    function onSendMail(ev) {
+        ev.preventDefault()
+        sendMail(mailToEdit)
+    }
 
 
     function handleInput({ target }) {

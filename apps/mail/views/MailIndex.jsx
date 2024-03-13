@@ -14,8 +14,6 @@ export function MailIndex() {
         loadMails()
     }, [])
     // //filter by in the empty array
-
-
     function loadMails() {
         mailService
             .query()
@@ -34,18 +32,18 @@ export function MailIndex() {
             })
     }
 
-    function onSendMail(ev, mailToEdit) {
-        ev.preventDefault()
-        console.log(mailToEdit)
+    function sendMail(newMail) {
 
-        // mailService
-        //     .save(mailToEdit)
-        //     .then(savedMail => {
-        //         console.log(`Book saved successfully ${savedMail.id}`)
-        //     })
-        //     .catch(err => {
-        //         console.log('Had issues with saving mail: ', err)
-        //     })
+        mailService
+            .save(newMail)
+            .then(savedMail => {
+                console.log(`mail saved successfully ${savedMail.id}`)
+            })
+            .catch(err => {
+                console.log('Had issues with saving mail: ', err)
+            })
+        .finally(() => setIsOnCompose(false))
+        loadMails()
     }
 
     function onCloseCompose(){
@@ -56,7 +54,7 @@ export function MailIndex() {
         <section className="mail-container">
             <h1>Mail app</h1>
             <MailList mails={mails} onRemoveMail={onRemoveMail} />
-            {isOnCompose && (< MailCompose onSendMail={onSendMail} onCloseCompose={onCloseCompose}/>)}
+            {isOnCompose && (< MailCompose sendMail={sendMail} onCloseCompose={onCloseCompose}/>)}
             <button onClick={() => setIsOnCompose(true)}>New Mail</button>
         </section>
     )

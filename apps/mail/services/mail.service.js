@@ -48,29 +48,31 @@ function remove(mailId) {
 }
 
 function save(mail) {
-    if (mail.id) {
-        return storageService.put(MAIL_KEY, mail)
-    } else {
-        mail = _createMail(mail.subject, mail.to, mail.body)
-        return storageService.post(MAIL_KEY, mail)
-    }
+    console.log(mail)
+    let newMail = _createMail(mail)
+    return storageService.post(MAIL_KEY, newMail)
 }
 
 
-function _createMail(subject, to, body) {
-    const mail = getEmptyMail()
 
+function _createMail({ subject, to, body }) {
+    const mail = getEmptyMail()
     mail.subject = subject
     mail.to = to
     mail.body = body
+    return mail
 }
 
 function getEmptyMail() {
     return {
-        to: '',
-        from: loggedInUser.email,
+        id: utilService.makeId(),
         subject: '',
-        body: ''
+        body: '',
+        isRead: false,
+        sentAt: 1551133930594,
+        removedAt: null,
+        from: loggedInUser.email,
+        to: ''
     }
 }
 
