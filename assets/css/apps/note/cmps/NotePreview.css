@@ -1,0 +1,53 @@
+.note-preview {
+    position: relative;
+    width: fit-content;
+    max-width: 220px;
+    height: fit-content;
+    border-radius: .8em;
+    transition: .218s;
+    border: 1px solid lightgray;
+    z-index: 1;
+    break-inside: avoid;
+    margin-bottom: 15px;
+    color: #5d5c5c;
+    padding: 0 1.5em;
+}
+
+.note-preview:hover {
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, .35);
+    cursor: pointer;
+}
+
+.note-preview:hover .note-actions {
+    opacity: 1;
+}
+
+.note-preview h2 {
+    padding: 0.8em 1.06em 0;
+}
+
+.note-preview h2 {
+    margin-top: .5em;
+}
+
+.note-preview h3 {
+    font-size: 1em;
+    text-transform: uppercase;
+}
+
+.note-preview p {
+    margin: .5em 0;
+}
+
+.note-preview img {
+    z-index: -1;
+    position: absolute;
+    top: .5em;
+    right: 1em;
+    width: 40%;
+}
+
+.note-actions {
+    opacity: 0;
+    transition: .28s;
+}

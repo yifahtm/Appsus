@@ -14,9 +14,9 @@ export function NotePreview({ note, onRemoveNote, onUpdateNote }) {
     }
 
     if (!note) return <div>loading...</div>
-    return <article onClick={() => setIsEditing(prevIsEd => true)} className="note-preview flex space-between column">
+    return <article onClick={() => setIsEditing(prevIsEd => true)} className="note-preview flex column">
         <h2>{note.title}</h2>
-        <h5>Created at: {note.createdAt}</h5>
+        {/* <h5>Created at: {note.createdAt}</h5> */}
         <p>{note.desc}</p>
         {/* <img src={`assets/img/audi.jpg`} /> */}
 
