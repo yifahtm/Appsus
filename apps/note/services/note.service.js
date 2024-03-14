@@ -1,6 +1,6 @@
 // note service
-import { utilService } from './util.service.js'
-import { storageService } from './async-storage.service.js'
+import { utilService } from '../../../services/util.service.js'
+import { storageService } from '../../../services/async-storage.service.js'
 
 const NOTE_KEY = 'noteDB'
 
@@ -101,13 +101,13 @@ function save(note) {
     if (note.id) {
         return storageService.put(NOTE_KEY, note)
     } else {
-        note = _createNote(note.title, note.createdAt)
+        note = _createNote(note.title, note.createdAt, note.desc)
         return storageService.post(NOTE_KEY, note)
     }
 }
 
-function getEmptyNote(title = '', createdAt = '', desc = '') {
-    return { title, createdAt, desc }
+function getEmptyNote(title = '', desc = '') {
+    return { title, desc }
 }
 
 function getDefaultFilter() {
@@ -134,10 +134,11 @@ function _createNotes() {
     }
 }
 
-function _createNote(title, createdAt = 250) {
-    const note = getEmptyNote(title, createdAt)
+function _createNote(title, createdAt = 250, desc = '') {
+    const note = getEmptyNote(title, desc)
     note.id = utilService.makeId()
-    note.desc = utilService.makeLorem(100)
+    const date = Date.now()
+    note.createdAt = utilService.getFormattedDate(date)
     return note
 }
 

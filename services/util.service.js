@@ -8,20 +8,21 @@ export const utilService = {
     getMonthName,
     saveToStorage,
     loadFromStorage,
-    elapsedTime
+    elapsedTime,
+    getFormattedDate
 }
 
 function elapsedTime(pastMs) {
     const now = new Date()
     const secondsPast = Math.round((now - pastMs) / 1000)
 
-    if (secondsPast < 60 * 5) return `just now` 
-    
+    if (secondsPast < 60 * 5) return `just now`
+
     const minutesPast = Math.floor(secondsPast / 60)
-    if (minutesPast < 60) return `last hour` 
+    if (minutesPast < 60) return `last hour`
 
     const hoursPast = Math.floor(minutesPast / 60)
-    if (hoursPast < 24)  return `today` 
+    if (hoursPast < 24) return `today`
 
     return `${Math.floor(hoursPast / 24)} days ago`
 
@@ -87,4 +88,9 @@ function getMonthName(date) {
         "July", "August", "September", "October", "November", "December"
     ]
     return monthNames[date.getMonth()]
+}
+
+function getFormattedDate(time) {
+    const date = new Date(time)
+    return date.toDateString()
 }

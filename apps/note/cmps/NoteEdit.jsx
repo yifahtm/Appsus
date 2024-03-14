@@ -11,7 +11,7 @@ export function NoteEdit() {
     const inputRef = useRef()
     const navigate = useNavigate()
     const { noteId } = useParams()
-
+    console.log(noteId)
     useEffect(() => {
         console.log('inputRef', inputRef)
         inputRef.current.focus()
@@ -20,9 +20,7 @@ export function NoteEdit() {
 
     function loadNote() {
         noteService.get(noteId)
-            .then(note => {
-                setNoteToEdit(note)
-            })
+            .then(setNoteToEdit)
             .catch(err => {
                 console.log('Had issues loading note', err)
                 showUserMsg(`Could not load`)
@@ -67,9 +65,9 @@ export function NoteEdit() {
 
         setNoteToEdit(prevNoteToEdit => ({ ...prevNoteToEdit, [field]: value || '' }))
     }
-
+    console.log(noteToEdit)
     const { title, createdAt, desc } = noteToEdit
-    if (!noteToEdit || typeof noteToEdit.title === 'undefined') return <div>Loading details..</div>
+    if (!noteToEdit) return <div>Loading details..</div>
     return (
         <section className="note-edit">
             <h3>Edit Note</h3>
@@ -80,7 +78,7 @@ export function NoteEdit() {
                         type="text"
                         id="note-title"
                         placeholder="Enter title"
-                        ref={inputRef}
+                        // ref={inputRef}
 
                         name="title"
                         onChange={handleChange}
