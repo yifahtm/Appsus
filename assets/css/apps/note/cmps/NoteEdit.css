@@ -6,7 +6,7 @@
      box-sizing: border-box;
  }
 
- section .note-edit {
+ .note-edit {
      display: flex;
      flex-direction: column;
  }

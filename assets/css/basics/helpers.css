@@ -2,6 +2,10 @@
     display: flex;
 }
 
+.wrap {
+    flex-wrap: wrap;
+}
+
 .column {
     flex-direction: column;
 }
@@ -18,12 +22,19 @@
     justify-content: space-between;
 }
 
+.space-around {
+    justify-content: space-around;
+}
+
 .grid {
     display: grid;
 }
 
 .clean-list {
+
     padding: 0;
     margin: 0;
     list-style-type: none;
 }
+
+

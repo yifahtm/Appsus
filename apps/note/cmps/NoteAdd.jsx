@@ -20,11 +20,11 @@ export function NoteAdd({ addNote }) {
     }
 
     // const { title, txt } = newNote
-    return <div className="add-note-form flex justify-center">
+    return <div className="add-note flex justify-center">
         <form onSubmit={onAddNote}>
             <label htmlFor="add"></label>
             <input
-                placeholder="Take a note"
+                placeholder="Add title here"
                 type="text"
                 id="add"
                 name="title"
