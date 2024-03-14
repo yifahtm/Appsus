@@ -1,5 +1,6 @@
 const { useState, useEffect } = React
 const { Link, Outlet } = ReactRouterDOM
+const { useParams } = ReactRouter
 
 import { mailService } from '../services/mail.service.js'
 import { MailList } from '../cmps/MailList.jsx'
@@ -9,7 +10,9 @@ export function MailIndex() {
     const [mails, setMails] = useState(null)
     const [filterBy, setFilterBy] = useState()
     const [isOnCompose, setIsOnCompose] = useState(false)
-    const [isSent,setIsSent]= useState(false) 
+    const [isSent, setIsSent] = useState(false)
+
+    const params = useParams()
 
     useEffect(() => {
         loadMails()
@@ -44,13 +47,13 @@ export function MailIndex() {
             .catch(err => {
                 console.log('Had issues with saving mail: ', err)
             })
-        .finally(() => setIsOnCompose(false))
-        .finally(() => setIsSent(true))
+            .finally(() => setIsOnCompose(false))
+            .finally(() => setIsSent(true))
         loadMails()
     }
 
-    function onCloseCompose(){
-        setIsOnCompose(false) 
+    function onCloseCompose() {
+        setIsOnCompose(false)
     }
 
     return (
@@ -61,18 +64,17 @@ export function MailIndex() {
                 <a>%</a>
                 <a>@</a>
             </div>
-            
+
             <nav >
-            <Link to="/mail/list">Inbox</Link> |
-        </nav>
-        <Outlet />
-
-
-            <MailList mails={mails} onRemoveMail={onRemoveMail} />
-            {isOnCompose && (< MailCompose sendMail={sendMail} onCloseCompose={onCloseCompose}/>)}
-            <button onClick={() => setIsOnCompose(true)}>New Mail</button>
-
+                <Link to="/mail/list">Inbox</Link>
+            </nav>
             <Outlet />
+
+            {!params.mailId && <MailList mails={mails} onRemoveMail={onRemoveMail} />}
+            {isOnCompose && (< MailCompose sendMail={sendMail} onCloseCompose={onCloseCompose} />)}
+            <span class="material-symbols-outlined" onClick={() => setIsOnCompose(true)}>
+                edit
+            </span>
         </section>
     )
 }

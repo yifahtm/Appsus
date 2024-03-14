@@ -18,7 +18,6 @@ export function MailList({ mails, onRemoveMail }) {
 
           <div className="mail-actions">
 
-
             <Link to={`/mail/${mail.id}`}><button>Details</button></Link>
             <button onClick={() => onRemoveMail(mail.id)}>Remove</button>
           </div>
