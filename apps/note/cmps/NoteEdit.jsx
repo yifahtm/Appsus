@@ -1,20 +1,21 @@
 const { useState, useEffect, useRef } = React
 const { useNavigate, useParams } = ReactRouter
+// const { Outlet, useOutletContext } = ReactRouterDOM
 
 import { noteService } from "../services/note.service.js"
+import { utilService } from "../../../services/util.service.js"
 import { showErrorMsg, showSuccessMsg, showUserMsg } from "../../../services/event-bus.service.js"
 
 
-export function NoteEdit() {
+export function NoteEdit({ noteId, onUpdateNote, isEditing, setIsEditing }) {
 
     const [noteToEdit, setNoteToEdit] = useState(noteService.getEmptyNote())
-    const inputRef = useRef()
     const navigate = useNavigate()
-    const { noteId } = useParams()
-    console.log(noteId)
+    // const { noteId } = useParams()
+    // const [onUpdateNote] = useOutletContext()
+
+
     useEffect(() => {
-        console.log('inputRef', inputRef)
-        inputRef.current.focus()
         if (noteId) loadNote()
     }, [])
 
@@ -23,7 +24,7 @@ export function NoteEdit() {
             .then(setNoteToEdit)
             .catch(err => {
                 console.log('Had issues loading note', err)
-                showUserMsg(`Could not load`)
+                // showUserMsg(`Could not load`)
                 navigate('/note')
             })
     }
@@ -34,14 +35,16 @@ export function NoteEdit() {
 
         noteService.save(noteToEdit)
             .then(savedNote => {
-                console.log(savedNote)
-                showSuccessMsg(`Note saved successfully ${savedNote.id}`)
+                onUpdateNote(savedNote)
+                setIsEditing(isEditing => false)
+                console.log(savedNote, 'saved successfuly')
+                // showSuccessMsg(`Note saved successfully ${savedNote.id}`)
                 // eventBusService.emit('note-updated')
                 navigate('/note')
             })
             .catch(err => {
                 console.log('Had issues saving note', err)
-                showErrorMsg('could not save note')
+                // showErrorMsg('could not save note')
             })
 
     }
@@ -65,46 +68,29 @@ export function NoteEdit() {
 
         setNoteToEdit(prevNoteToEdit => ({ ...prevNoteToEdit, [field]: value || '' }))
     }
+
     console.log(noteToEdit)
-    const { title, createdAt, desc } = noteToEdit
+    const { title, desc } = noteToEdit
     if (!noteToEdit) return <div>Loading details..</div>
     return (
         <section className="note-edit">
             <h3>Edit Note</h3>
             <form className="note-edit flex column" onSubmit={onSaveNote} >
                 <div className="input-container flex align-center">
-                    <label htmlFor="note-title">Title:</label>
+                    <label htmlFor="title">Title:</label>
                     <input
                         type="text"
-                        id="note-title"
-                        placeholder="Enter title"
-                        // ref={inputRef}
-
+                        id="title"
                         name="title"
                         onChange={handleChange}
                         value={title || ''}
                     />
                 </div>
-                {/* <div className="input-container flex align-center">
-                    <label htmlFor="note-created-at">Created at:</label>
-                    <input
-                        type="date"
-                        id="note-created-at"
-                        placeholder="Enter creation time"
-
-                        name="createdAt"
-                        onChange={handleChange}
-                        value={createdAt}
-                    />
-                </div> */}
                 <div className="input-container flex align-center">
-                    <label htmlFor="note-desc">Description:</label>
+                    <label htmlFor="desc">Description:</label>
                     <input
                         type="text"
-                        id="note-desc"
-                        placeholder="Enter description"
-                        ref={inputRef}
-
+                        id="desc"
                         name="desc"
                         onChange={handleChange}
                         value={desc}

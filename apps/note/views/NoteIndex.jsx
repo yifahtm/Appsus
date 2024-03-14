@@ -65,7 +65,7 @@ export function NoteIndex() {
     }
 
     function onUpdateNote(noteToUpdate) {
-        setNotes((prevNotes) => prevNotes.map((currNote) => currNote.id === noteToUpdate.id ? noteToUpdate : currNote))
+        setNotes((prevNotes) => prevNotes.map((note) => note.id === noteToUpdate.id ? noteToUpdate : note))
     }
 
 
@@ -82,7 +82,6 @@ export function NoteIndex() {
         {/* <NoteFilterDesc
             onSetFilter={onSetFilter}
             filterBy={{ desc }} /> */}
-
         <NoteAdd addNote={addNote} />
         {!noteId &&
             <ul className="note-index preview clean-list flex wrap space-around">
