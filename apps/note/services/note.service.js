@@ -1,6 +1,6 @@
 // note service
-import { utilService } from './util.service.js'
-import { storageService } from './async-storage.service.js'
+import { utilService } from '../../../services/util.service.js'
+import { storageService } from '../../../services/async-storage.service.js'
 
 const NOTE_KEY = 'noteDB'
 
@@ -106,8 +106,8 @@ function save(note) {
     }
 }
 
-function getEmptyNote(title = '', createdAt = '', desc = '') {
-    return { title, createdAt, desc }
+function getEmptyNote(title = '', desc = '') {
+    return { title, desc }
 }
 
 function getDefaultFilter() {
