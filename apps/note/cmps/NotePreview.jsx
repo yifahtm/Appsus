@@ -22,6 +22,14 @@ export function NotePreview({ note, onRemoveNote, onUpdateNote }) {
         setPreviewStyle((prevStyle) => ({ ...prevStyle, ...newStyle }))
     }
 
+    // function onTogglePin() {
+    //     noteToEdit.isPinned = !noteToEdit.isPinned
+    //     noteService.save(noteToEdit)
+    //         .then((savedNote) => {
+    //             setNoteToEdit({ ...savedNote })
+    //         })
+    // }
+
     if (!note) return <div>loading...</div>
     return <article style={previewStyle} onClick={() => setIsEditing(true)} className="note-preview flex column">
 
