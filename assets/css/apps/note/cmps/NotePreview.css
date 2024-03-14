@@ -1,7 +1,8 @@
 .note-preview {
     position: relative;
     width: fit-content;
-    max-width: 220px;
+    /* max-width: 220px; */
+    /* display: dense; */
     height: fit-content;
     border-radius: .8em;
     transition: .218s;
@@ -11,6 +12,7 @@
     margin-bottom: 15px;
     color: #5d5c5c;
     padding: 0 1.5em;
+    /* columns: 220px 4; */
 }
 
 .note-preview:hover {

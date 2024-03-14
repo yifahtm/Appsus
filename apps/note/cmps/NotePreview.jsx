@@ -2,23 +2,28 @@ const { useState, useEffect } = React
 const { Link, useSearchParams } = ReactRouterDOM
 
 import { NoteEdit } from '../cmps/NoteEdit.jsx'
+import { DynamicCmp } from '../cmps/dynamic-inputs/DynamicCmp.jsx'
 
 export function NotePreview({ note, onRemoveNote, onUpdateNote }) {
-    // const [noteStyle, setNoteStyle] = useState({ backgroundColor: note.style.backgroundColor })
+    const [cmpType, setCmpType] = useState('color')
+    const [previewStyle, setPreviewStyle] = useState({ backgroundColor: 'white' })
     const [isEditing, setIsEditing] = useState(false)
     // const [isPinned, setIsPinned] = useState(false)
-    console.log(isEditing);
 
     function onChangeStyle(newStyle) {
-        setNoteStyle((prevStyle) => ({ ...prevStyle, ...newStyle }))
+        setPreviewStyle((prevStyle) => ({ ...prevStyle, ...newStyle }))
     }
 
     if (!note) return <div>loading...</div>
-    return <article onClick={() => setIsEditing(prevIsEd => true)} className="note-preview flex column">
+    return <article style={previewStyle} onClick={() => setIsEditing(prevIsEd => true)} className="note-preview flex column">
         <h2>{note.title}</h2>
-        {/* <h5>Created at: {note.createdAt}</h5> */}
         <p>{note.desc}</p>
-        {/* <img src={`assets/img/audi.jpg`} /> */}
+        <section>
+            <select onChange={(ev) => { setCmpType(ev.target.value) }}>
+                <option value="color">Color</option>
+            </select>
+        </section>
+        <DynamicCmp cmpType={cmpType} onChangeStyle={onChangeStyle} previewStyle={previewStyle} />
 
         <div className="note-actions">
             <button className="remove-btn" onClick={() => onRemoveNote(note.id)}>X</button>
