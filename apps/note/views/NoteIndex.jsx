@@ -18,11 +18,7 @@ export function NoteIndex() {
 
     useEffect(() => {
         // setSearchParams(filterBy)
-        // const unsub = eventBusService.createEventEmitter('note-updated', loadNotes)
         loadNotes()
-        // return () => {
-        //     unsub(); // Clean up the listener
-        // };
     }, [])
 
     function onSetFilter(fieldsToUpdate) {
@@ -68,12 +64,9 @@ export function NoteIndex() {
         setNotes((prevNotes) => prevNotes.map((note) => note.id === noteToUpdate.id ? noteToUpdate : note))
     }
 
-
-    // console.log('notes from note index', notes)
-    // console.log('selectedNote from note index', selectedNote)
     // const { title, createdAt, desc } = filterBy
     if (!notes) return <div>loading...</div>
-    if (!notes || !notes.length) return <p>No notes to display.</p>;
+
     return <section className="note-index">
         {/* <NoteFilter
             onSetFilter={onSetFilter}
@@ -83,6 +76,7 @@ export function NoteIndex() {
             onSetFilter={onSetFilter}
             filterBy={{ desc }} /> */}
         <NoteAdd addNote={addNote} />
+        {!notes || !notes.length && <p>No notes to display.</p>}
         {!noteId &&
             <ul className="note-index preview clean-list flex wrap space-around">
                 {
