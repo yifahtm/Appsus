@@ -23,7 +23,7 @@ export function MailFilter() {
                 placeholder="search" />
 
             <button>
-                <span class="material-symbols-outlined">
+                <span className="material-symbols-outlined">
                     search
                 </span>
             </button>
