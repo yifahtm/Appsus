@@ -1,5 +1,5 @@
 const { useState, useEffect } = React
-const { Link } = ReactRouterDOM
+const { Link, Outlet } = ReactRouterDOM
 
 import { mailService } from '../services/mail.service.js'
 import { MailList } from '../cmps/MailList.jsx'
@@ -56,10 +56,23 @@ export function MailIndex() {
     return (
         <section className="mail-container">
             <h1>Mail app</h1>
-            <div class="side-nav"></div>
+            <div className="side-nav">
+                <a>#</a>
+                <a>%</a>
+                <a>@</a>
+            </div>
+            
+            <nav >
+            <Link to="/mail/list">Inbox</Link> |
+        </nav>
+        <Outlet />
+
+
             <MailList mails={mails} onRemoveMail={onRemoveMail} />
             {isOnCompose && (< MailCompose sendMail={sendMail} onCloseCompose={onCloseCompose}/>)}
             <button onClick={() => setIsOnCompose(true)}>New Mail</button>
+
+            <Outlet />
         </section>
     )
 }
