@@ -6,7 +6,7 @@ import { DynamicCmp } from '../cmps/dynamic-inputs/DynamicCmp.jsx'
 
 import { noteService } from "../services/note.service.js"
 
-export function NotePreview({ note, onRemoveNote, onUpdateNote }) {
+export function NotePreview({ note, onRemoveNote, onUpdateNote, onChangeStyle }) {
     const [cmpType, setCmpType] = useState('color')
     const [previewStyle, setPreviewStyle] = useState({ backgroundColor: 'white' })
     const [isEditing, setIsEditing] = useState(false)
@@ -18,9 +18,7 @@ export function NotePreview({ note, onRemoveNote, onUpdateNote }) {
 
     }, [])
 
-    function onChangeStyle(newStyle) {
-        setPreviewStyle((prevStyle) => ({ ...prevStyle, ...newStyle }))
-    }
+
 
     // function onTogglePin() {
     //     noteToEdit.isPinned = !noteToEdit.isPinned
@@ -37,7 +35,9 @@ export function NotePreview({ note, onRemoveNote, onUpdateNote }) {
             onTogglePin()
             setIsPinned((isPin) => !isPin)
             onTogglePin(isPinned)
-        }}>pin</button>
+        }}><span class="material-symbols-outlined">
+                keep
+            </span></button>
         {!isEditing && <React.Fragment>
             <h2>{note.title}</h2>
             <p>{note.desc}</p>
@@ -47,14 +47,28 @@ export function NotePreview({ note, onRemoveNote, onUpdateNote }) {
         <div className="note-actions">
             <button value="color" onClick={(ev) => { setCmpType(ev.target.value) }} >
                 <DynamicCmp cmpType={cmpType} onChangeStyle={onChangeStyle} previewStyle={previewStyle} />
-                Color
+                <span class="material-symbols-outlined">
+                    palette
+                </span>
             </button>
-            <button>Picture</button>
-            <button>Video</button>
-            <button>Todo List</button>
-            <button>Copy</button>
-            <button>Email</button>
-            <button className="remove-btn" onClick={() => onRemoveNote(note.id)}>X</button>
+            <button><span class="material-symbols-outlined">
+                image
+            </span></button>
+            <button><span class="material-symbols-outlined">
+                videocam
+            </span></button>
+            <button><span class="material-symbols-outlined">
+                select_check_box
+            </span></button>
+            <button><span class="material-symbols-outlined">
+                file_copy
+            </span></button>
+            <button><span class="material-symbols-outlined">
+                mail
+            </span></button>
+            <button className="remove-btn" onClick={() => onRemoveNote(note.id)}><span class="material-symbols-outlined">
+                delete
+            </span></button>
         </div>
         {isEditing && <NoteEdit
             isEditing={isEditing}

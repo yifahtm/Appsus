@@ -26,14 +26,16 @@ export function NoteFilter({ onSetFilter, filterBy }) {
     }
 
     return <section className="note-filter">
-        <form onSubmit={onFilter}>
+        <form className="search-note flex justify-center" onSubmit={onFilter}>
             <lable htmlFor="search"></lable>
             <input onChange={handleChange} type="search"
                 id="search"
                 name="title"
                 value={filterByToEdit.title}
                 placeholder="Search note..." />
-            <button>Search</button>
+            <button><span class="material-symbols-outlined">
+                search
+            </span></button>
         </form>
     </section >
 }

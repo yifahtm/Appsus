@@ -66,6 +66,10 @@ export function NoteIndex() {
         setNotes((prevNotes) => prevNotes.map((note) => note.id === noteToUpdate.id ? noteToUpdate : note))
     }
 
+    function onChangeStyle(newStyle) {
+        setPreviewStyle((prevStyle) => ({ ...prevStyle, ...newStyle }))
+    }
+
     const { title, createdAt, desc } = filterBy
     if (!notes) return <div>loading...</div>
 
@@ -77,7 +81,7 @@ export function NoteIndex() {
         {/* <NoteFilterDesc
             onSetFilter={onSetFilter}
             filterBy={{ desc }} /> */}
-        <NoteAdd addNote={addNote} />
+        <NoteAdd onChangeStyle={onChangeStyle} onRemoveNote={onRemoveNote} addNote={addNote} />
         {!notes || !notes.length && <p>No notes to display.</p>}
         {!noteId &&
             <ul className="note-container clean-list  ">
@@ -90,6 +94,7 @@ export function NoteIndex() {
                                 note={note}
                                 onRemoveNote={onRemoveNote}
                                 onUpdateNote={onUpdateNote}
+                                onChangeStyle={onChangeStyle}
                             />
                             {/* </Link> */}
                         </li>)
