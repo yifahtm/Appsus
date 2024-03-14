@@ -20,6 +20,7 @@ export function NotePreview({ note, onRemoveNote, onUpdateNote }) {
         <p>{note.desc}</p>
         <section>
             <select onChange={(ev) => { setCmpType(ev.target.value) }}>
+                <option value="none" select>None</option>
                 <option value="color">Color</option>
             </select>
         </section>
