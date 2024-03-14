@@ -7,7 +7,7 @@ export function MailList({ mails, onRemoveMail }) {
     return <div className="nothing-to-show">No mails to show</div>
 
   return (
-    <ul className="mail-list">
+    <ul className="mail-list clean-list">
       {mails.map(mail => (
         <li key={mail.id} className="list">
           <Link to={`/mail/${mail.id}`}>
@@ -17,9 +17,15 @@ export function MailList({ mails, onRemoveMail }) {
 
 
           <div className="mail-actions">
-
-            <Link to={`/mail/${mail.id}`}><button>Details</button></Link>
-            <button onClick={() => onRemoveMail(mail.id)}>Remove</button>
+            <span className="material-symbols-outlined">
+              star
+            </span>
+            <span className="material-symbols-outlined">
+              mark_email_unread
+            </span>
+            <span className="material-symbols-outlined" onClick={() => onRemoveMail(mail.id)}>
+              delete
+            </span>
           </div>
         </li>
       ))}

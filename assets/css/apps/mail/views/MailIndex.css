@@ -1,1 +1,28 @@
  /* mail index  */
+
+
+ .side-nav {
+   background-color: red;
+   display: flex;
+   flex-direction: column;
+   place-items: center;
+   gap: 5px;
+ }
+
+ .mail-section {
+   background-color: blueviolet;
+ }
+
+ .compose {
+   border: solid black 1px;
+ }
+
+ .main-mail {
+   display: flex;
+ }
+
+ .mail-header {
+   background-color:pink;
+   display: flex;
+ }
+

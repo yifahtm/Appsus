@@ -5,6 +5,7 @@ const { useParams } = ReactRouter
 import { mailService } from '../services/mail.service.js'
 import { MailList } from '../cmps/MailList.jsx'
 import { MailCompose } from '../cmps/MailCompose.jsx'
+import { MailFilter } from '../cmps/MailFilter.jsx'
 
 export function MailIndex() {
     const [mails, setMails] = useState(null)
@@ -58,23 +59,52 @@ export function MailIndex() {
 
     return (
         <section className="mail-container">
-            <h1>Mail app</h1>
-            <div className="side-nav">
-                <a>#</a>
-                <a>%</a>
-                <a>@</a>
+            <div className='mail-header'>
+                <button>
+                    <span className="material-symbols-outlined" onClick={() => setIsOnCompose(true)}>
+                        edit
+                    </span>
+                    compose
+                </button>
+
+                <MailFilter />
+
             </div>
 
-            <nav >
-                <Link to="/mail/list">Inbox</Link>
-            </nav>
-            <Outlet />
+            <section className="main-mail">
+                <nav className="side-nav" >
+                    <Link to="/mail/list">
+                        <span className="material-symbols-outlined">
+                            inbox
+                        </span>
+                    </Link>
+                    <span className="material-symbols-outlined">
+                        star
+                    </span>
+                    <span class="material-symbols-outlined">
+                        send
+                    </span>
+                    <span class="material-symbols-outlined">
+                        draft
+                    </span>
+                    <span className="material-symbols-outlined">
+                        delete
+                    </span>
 
-            {!params.mailId && <MailList mails={mails} onRemoveMail={onRemoveMail} />}
-            {isOnCompose && (< MailCompose sendMail={sendMail} onCloseCompose={onCloseCompose} />)}
-            <span class="material-symbols-outlined" onClick={() => setIsOnCompose(true)}>
-                edit
-            </span>
+                </nav>
+                <Outlet />
+
+                <div className='mail-section'>
+                    {!params.mailId && <MailList mails={mails} onRemoveMail={onRemoveMail} />}
+                </div>
+
+                <div className="compose">
+                    {isOnCompose && (< MailCompose sendMail={sendMail} onCloseCompose={onCloseCompose} />)}
+                </div>
+
+
+            </section>
+
         </section>
     )
 }
