@@ -40,9 +40,13 @@ export function MailDetails() {
             <h1>{mail.subject}</h1>
             <h2>{mail.to}</h2>
             <p>{mail.body}</p>
-            <button onClick={removeMail}>remove</button>
+            <span className="material-symbols-outlined" onClick={() => removeMail(mail.id)}>
+              delete
+            </span>
             <Link to="/mail">
-                <button>Go back</button>
+                <span className="material-symbols-outlined">
+                    arrow_back
+                </span>
             </Link>
         </div>
 
