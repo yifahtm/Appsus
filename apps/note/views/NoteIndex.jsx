@@ -1,22 +1,29 @@
 const { useState, useEffect } = React
 const { Link, useSearchParams } = ReactRouterDOM
+const { useParams } = ReactRouter
 
 import { NotePreview } from '../cmps/NotePreview.jsx'
+import { AddNote } from "../cmps/AddNote.jsx"
 // import { NoteFilter } from './../cmps/NoteFilter.jsx'
 // import { NOteFilterDesc } from './../cmps/NoteFilterDesc.jsx'
 
 import { noteService } from './../services/note.service.js'
-import { showErrorMsg, showSuccessMsg } from '../services/event-bus.service.js'
+import { eventBusService, showErrorMsg, showSuccessMsg, showUserMsg } from '../services/event-bus.service.js'
 
 export function NoteIndex() {
     const [searchParams, setSearchParams] = useSearchParams()
+    const { noteId } = useParams()
 
     const [notes, setNotes] = useState(null)
     const [filterBy, setFilterBy] = useState(noteService.getFilterFromParams(searchParams))
 
     useEffect(() => {
         setSearchParams(filterBy)
+        // const unsub = eventBusService.createEventEmitter('note-updated', loadNotes)
         loadNotes()
+        // return () => {
+        //     unsub(); // Clean up the listener
+        // };
     }, [filterBy])
 
     function onSetFilter(fieldsToUpdate) {
@@ -61,6 +68,7 @@ export function NoteIndex() {
     // console.log('selectedNote from note index', selectedNote)
     const { title, createdAt, desc } = filterBy
     if (!notes) return <div>loading...</div>
+    if (!notes || !notes.length) return <p>No notes to display.</p>;
     return <section className="note-index">
         {/* <NoteFilter
             onSetFilter={onSetFilter}
@@ -72,10 +80,10 @@ export function NoteIndex() {
 
         <Link to="/note/edit"><button>Add a note</button></Link>
         <article className="note-container">
-            {notes.map(note => <React.Fragment><li key={note.id}></li>
+            {notes.map(note => <React.Fragment key={note.id}>
                 <Link to={`/note/edit/?${note.id}`}>
                     <NotePreview
-                        notes={notes}
+                        note={note}
                         onRemoveNote={onRemoveNote}
                         onUpdateNote={onUpdateNote}
                     />
