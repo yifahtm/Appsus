@@ -9,7 +9,7 @@ export function MailList({ mails, onRemoveMail }) {
   return (
     <ul className="mail-list clean-list">
       {mails.map(mail => (
-        <li key={mail.id} className="list">
+        <li key={mail.id} className="mail-li">
           <Link to={`/mail/${mail.id}`}>
             <MailPreview mail={mail} />
           </Link>

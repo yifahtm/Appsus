@@ -33,10 +33,10 @@ export function MailDetails() {
             .finally(() => setIsLoading(false))
     }
 
-    if (isLoading) return <div>Loading...</div>
+    if (isLoading) return <div className="nothing to show">Loading...</div>
 
     return (
-        <div>
+        <div className="mail-display">
             <h1>{mail.subject}</h1>
             <h2>{mail.to}</h2>
             <p>{mail.body}</p>
