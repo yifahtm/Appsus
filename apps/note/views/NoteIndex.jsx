@@ -1,25 +1,26 @@
 
 const { useState, useEffect } = React
-const { Link, Outlet } = ReactRouterDOM
+const { Link, Outlet, useSearchParams } = ReactRouterDOM
 const { useParams } = ReactRouter
 
 import { NotePreview } from '../cmps/NotePreview.jsx'
-// import { NoteFilter } from './../cmps/NoteFilter.jsx'
+import { NoteFilter } from './../cmps/NoteFilter.jsx'
 // import { NOteFilterDesc } from './../cmps/NoteFilterDesc.jsx'
 
 import { noteService } from './../services/note.service.js'
 import { NoteAdd } from "../cmps/NoteAdd.jsx"
-// import { eventBusService, showErrorMsg, showSuccessMsg } from '../services/event-bus.service.js'
+import { eventBusService, showErrorMsg, showSuccessMsg } from '../services/event-bus.service.js'
 
 export function NoteIndex() {
     const [notes, setNotes] = useState(null)
     const { noteId } = useParams()
-    // const [filterBy, setFilterBy] = useState(noteService.getFilterFromParams(searchParams))
+    const [searchParams, setSearchParams] = useSearchParams()
+    const [filterBy, setFilterBy] = useState(noteService.getFilterFromParams(searchParams))
 
     useEffect(() => {
-        // setSearchParams(filterBy)
+        setSearchParams(filterBy)
         loadNotes()
-    }, [])
+    }, [filterBy])
 
     function onSetFilter(fieldsToUpdate) {
         console.log('fieldsToUpdate', fieldsToUpdate)
@@ -28,7 +29,7 @@ export function NoteIndex() {
     }
 
     function loadNotes() {
-        noteService.query()
+        noteService.query(filterBy)
             .then((notes) => {
                 console.log(notes)
                 setNotes(notes)
@@ -39,11 +40,11 @@ export function NoteIndex() {
         noteService.remove(noteId)
             .then(() => {
                 setNotes((prevNotes) => prevNotes.filter(note => note.id !== noteId))
-                // showSuccessMsg(`Note removed successfully (${noteId})`)
+                showSuccessMsg(`Note removed successfully (${noteId})`)
             })
             .catch((err) => {
                 console.log('Had issues removing note', err)
-                // showErrorMsg(`Could not remove note #(${noteId})`)
+                showErrorMsg(`Could not remove note #(${noteId})`)
             })
     }
 
@@ -51,12 +52,12 @@ export function NoteIndex() {
         noteService.save(note)
             .then((updatedNote) => {
                 setNotes(prevNotes => [{ ...updatedNote }, ...prevNotes])
-                // showSuccessMsg(`adding ${note.title}`)
+                showSuccessMsg(`adding ${note.title}`)
             })
 
             .catch(err => {
                 console.log(err)
-                // showErrorMsg('already have it.', err)
+                showErrorMsg('already have it.', err)
             })
     }
 
@@ -64,21 +65,25 @@ export function NoteIndex() {
         setNotes((prevNotes) => prevNotes.map((note) => note.id === noteToUpdate.id ? noteToUpdate : note))
     }
 
-    // const { title, createdAt, desc } = filterBy
+    function onChangeStyle(newStyle) {
+        setPreviewStyle((prevStyle) => ({ ...prevStyle, ...newStyle }))
+    }
+
+    const { title, createdAt, desc } = filterBy
     if (!notes) return <div>loading...</div>
 
     return <section className="note-index">
-        {/* <NoteFilter
+        <NoteFilter
             onSetFilter={onSetFilter}
-            filterBy={{ txt, minSpeed }} /> */}
+            filterBy={{ title, createdAt, desc }} />
 
         {/* <NoteFilterDesc
             onSetFilter={onSetFilter}
             filterBy={{ desc }} /> */}
-        <NoteAdd addNote={addNote} />
+        <NoteAdd onChangeStyle={onChangeStyle} onRemoveNote={onRemoveNote} addNote={addNote} />
         {!notes || !notes.length && <p>No notes to display.</p>}
         {!noteId &&
-            <ul className="note-index preview clean-list flex wrap space-around">
+            <ul className="note-container clean-list  ">
                 {
                     notes.map(note => (
                         <li key={note.id}>
@@ -88,6 +93,7 @@ export function NoteIndex() {
                                 note={note}
                                 onRemoveNote={onRemoveNote}
                                 onUpdateNote={onUpdateNote}
+                                onChangeStyle={onChangeStyle}
                             />
                             {/* </Link> */}
                         </li>)

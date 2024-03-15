@@ -69,7 +69,7 @@ function query(filterBy = getDefaultFilter()) {
         .then(notes => {
             if (filterBy.title) {
                 const regex = new RegExp(filterBy.title, 'i')
-                notes = notes.filter(note => regex.test(note.info.title))
+                notes = notes.filter(note => regex.test(note.title))
             }
             if (filterBy.createdAt) {
                 notes = notes.filter(note => note.createdAt >= filterBy.createdAt)

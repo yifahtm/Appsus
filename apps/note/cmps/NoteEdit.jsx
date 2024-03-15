@@ -24,7 +24,7 @@ export function NoteEdit({ noteId, onUpdateNote, isEditing, setIsEditing }) {
             .then(setNoteToEdit)
             .catch(err => {
                 console.log('Had issues loading note', err)
-                // showUserMsg(`Could not load`)
+                showUserMsg(`Could not load`)
                 navigate('/note')
             })
     }
@@ -38,13 +38,12 @@ export function NoteEdit({ noteId, onUpdateNote, isEditing, setIsEditing }) {
                 onUpdateNote(savedNote)
                 setIsEditing(isEditing => false)
                 console.log(savedNote, 'saved successfuly')
-                // showSuccessMsg(`Note saved successfully ${savedNote.id}`)
-                // eventBusService.emit('note-updated')
+                showSuccessMsg(`Note saved successfully ${savedNote.id}`)
                 navigate('/note')
             })
             .catch(err => {
                 console.log('Had issues saving note', err)
-                // showErrorMsg('could not save note')
+                showErrorMsg('could not save note')
             })
 
     }
