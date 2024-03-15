@@ -6,29 +6,27 @@ import { mailService } from '../services/mail.service.js'
 import { MailList } from '../cmps/MailList.jsx'
 import { MailCompose } from '../cmps/MailCompose.jsx'
 import { MailFilter } from '../cmps/MailFilter.jsx'
+import { MailActions } from '../cmps/MailActions.jsx'
 
 export function MailIndex() {
     const [mails, setMails] = useState(null)
-    const [filterBy, setFilterBy] = useState()
+    const [filterBy, setFilterBy] = useState(mailService.getDefaultFilter())
     const [isOnCompose, setIsOnCompose] = useState(false)
     const [isSent, setIsSent] = useState(false)
 
     const params = useParams()
 
     useEffect(() => {
-        loadMails(filterBy)
-    }, [isSent,filterBy])
+        loadMails()
+        
+    }, [isSent, filterBy])
     // //filter by in the empty array
     function loadMails() {
         mailService
-            .query()
+            .query(filterBy)
             .then(setMails)
             .catch(err => console.log('Had issues with loading mails: ', err))
             .finally(setIsSent(false))
-    }
-
-    function getUnreadCount() {
-        
     }
 
     function onRemoveMail(mailId) {
@@ -44,7 +42,9 @@ export function MailIndex() {
 
     function onSetFilter(fieldsToUpdate) {
         setFilterBy(fieldsToUpdate)
-      }
+    }
+
+    
     
 
     function sendMail(newMail) {
@@ -66,12 +66,17 @@ export function MailIndex() {
         setIsOnCompose(false)
     }
 
+    function getUnreadCount(mails) {
+        if (!mails) return 
+        return mails.filter(mail => mail.isRead === true).length
+    }
+
     return (
         <section className="mail-container">
             <div className="compose">
-                    {isOnCompose && (
+                {isOnCompose && (
                     < MailCompose sendMail={sendMail} onCloseCompose={onCloseCompose} />)}
-                </div>
+            </div>
             <div className='mail-header'>
                 <button className="compose-btn" onClick={() => setIsOnCompose(true)}>
                     <span className="material-symbols-outlined" >
@@ -108,12 +113,10 @@ export function MailIndex() {
                 <Outlet />
 
                 <div className='mail-section'>
-                    {!params.mailId && <MailList mails={mails} onRemoveMail={onRemoveMail}/>}
+                    < MailActions />
+                    {!params.mailId && <MailList mails={mails} onRemoveMail={onRemoveMail} />}
                 </div>
-
-                
-
-
+                <span>you have <span>{getUnreadCount(mails)}</span> unread emails</span>
             </section>
 
         </section>

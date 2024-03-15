@@ -23,10 +23,11 @@ function query(filterBy = getDefaultFilter()) {
 
     return storageService.query(MAIL_KEY)
         .then(mails => {
-            // if (filterBy.txt) {
-            //     const regex = new RegExp(filterBy.txt, 'i')
-            //     cars = cars.filter(car => regex.test(car.vendor))
-            // }
+            if (filterBy.search) {
+                const regex = new RegExp(filterBy.search, 'i')
+                mails = mails.filter(mail => regex.test(mail.subject) || regex.test(mail.body))
+                // mails = mails.filter(mail => mail.title.includes(filterBy) || mail.body.includes(filterBy))
+            }
             // if (filterBy.minSpeed) {
             //     cars = cars.filter(car => car.maxSpeed >= filterBy.minSpeed)
             // }
@@ -77,7 +78,7 @@ function getEmptyMail() {
 }
 
 function getDefaultFilter() {
-    return { search: '', read: true }
+    return { search: '', read: '' }
 }
 
 

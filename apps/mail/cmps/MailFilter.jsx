@@ -5,7 +5,7 @@ export function MailFilter({ filterBy, onSetFilter }) {
 
     useEffect(() => {
         onSetFilter(filterByToEdit)
-      }, [filterByToEdit])
+    }, [filterByToEdit])
 
     function onFilter(ev) {
         ev.preventDefault()
@@ -13,10 +13,11 @@ export function MailFilter({ filterBy, onSetFilter }) {
     }
 
     function handleChange({ target }) {
-        let { value} = target
-        setFilterByToEdit(value)
+        let { value, name: field } = target
+        setFilterByToEdit(prevFilterBy => ({ ...prevFilterBy, [field]: value }))
     }
 
+    let {search } = filterByToEdit
     return (
         <form onSubmit={onFilter}>
             <label htmlFor="search">
@@ -25,10 +26,10 @@ export function MailFilter({ filterBy, onSetFilter }) {
             <input type="text"
                 id="search"
                 name="search"
-                value={filterByToEdit}
+                value={search}
                 onChange={handleChange}
-                placeholder="search"/>
-                
+                placeholder="search" />
+
 
             <button>
                 <span className="material-symbols-outlined">

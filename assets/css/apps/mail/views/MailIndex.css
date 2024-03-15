@@ -11,11 +11,16 @@
     align-items: flex-start;
  }
 
+ .side-nav a{
+   margin: 0;
+ }
+
  .mail-section {
     background-color: blueviolet;
     /* width: 100%; */
     display: flex;
     justify-content: flex-start;
+    flex-direction: column;
  }
 
  .mail-section h1,
