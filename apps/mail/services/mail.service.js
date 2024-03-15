@@ -11,7 +11,8 @@ export const mailService = {
     remove,
     save,
     getEmptyMail,
-    getDefaultFilter
+    getDefaultFilter,
+    getDefaultSortBy
 }
 
 _createMails()
@@ -28,13 +29,12 @@ function query(filterBy = getDefaultFilter()) {
                 mails = mails.filter(mail => regex.test(mail.subject) || regex.test(mail.body))
                 // mails = mails.filter(mail => mail.title.includes(filterBy) || mail.body.includes(filterBy))
             }
-            // if (filterBy.minSpeed) {
-            //     cars = cars.filter(car => car.maxSpeed >= filterBy.minSpeed)
-            // }
-            // if (filterBy.desc) {
-            //     const regex = new RegExp(filterBy.desc, 'i')
-            //     cars = cars.filter(car => regex.test(car.desc))
-            // }
+            if (filterBy.read === 'read') {
+                mails = mails.filter(mail => mail.isRead)
+            }
+            if (filterBy.read === 'unread') {
+                mails = mails.filter(mail => !mail.isRead)
+            }
             return mails
         })
 }
@@ -53,7 +53,9 @@ function save(mail) {
     return storageService.post(MAIL_KEY, newMail)
 }
 
-
+function getDefaultSortBy(){
+    return {sortBy:'' ,dir: 1}
+}
 
 function _createMail({ subject, to, body }) {
     const mail = getEmptyMail()
@@ -78,7 +80,7 @@ function getEmptyMail() {
 }
 
 function getDefaultFilter() {
-    return { search: '', read: '' }
+    return { search: '', read: 'all' }
 }
 
 
