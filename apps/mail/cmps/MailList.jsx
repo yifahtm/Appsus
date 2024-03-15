@@ -2,16 +2,20 @@ const { Link } = ReactRouterDOM
 
 import { MailPreview } from "./MailPreview.jsx"
 
-export function MailList({ mails, onRemoveMail}) {
+export function MailList({ mails, onRemoveMail }) {
   if (!mails || !mails.length)
     return <div className="nothing-to-show">No mails to show</div>
+
+  function getClassName(mail) {
+    return mail.isRead ? 'mail-li read' : 'mail-li unread'
+  }
 
   return (
     <ul className="mail-list clean-list">
       {mails.map(mail => (
-        <li key={mail.id} className="mail-li">
+        <li key={mail.id} className={getClassName(mail)}>
           <Link to={`/mail/${mail.id}`}>
-            <MailPreview mail={mail}/>
+            <MailPreview mail={mail} />
           </Link>
           <div className="mail-actions">
             <span className="material-symbols-outlined">
@@ -26,6 +30,6 @@ export function MailList({ mails, onRemoveMail}) {
           </div>
         </li>
       ))}
-    </ul>
+     </ul>
   )
 }

@@ -27,6 +27,10 @@ export function MailIndex() {
             .finally(setIsSent(false))
     }
 
+    function getUnreadCount() {
+        
+    }
+
     function onRemoveMail(mailId) {
         mailService
             .remove(mailId)
