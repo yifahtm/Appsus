@@ -33,7 +33,7 @@ export function NoteFilter({ onSetFilter, filterBy }) {
                 name="title"
                 value={filterByToEdit.title}
                 placeholder="Search note..." />
-            <button><span className="material-symbols-outlined">
+            <button title="Search"><span className="material-symbols-outlined">
                 search
             </span></button>
         </form>

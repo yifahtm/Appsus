@@ -17,6 +17,7 @@ export function NoteIndex() {
     const [searchParams, setSearchParams] = useSearchParams()
     // const [previewStyle, setPreviewStyle] = useState({ backgroundColor: 'white' })
     const [filterBy, setFilterBy] = useState(noteService.getFilterFromParams(searchParams))
+    // const [isPinned, setIsPinned] = useState(note.isPinned)
 
     useEffect(() => {
         setSearchParams(filterBy)

@@ -43,25 +43,19 @@ export function NoteAdd({ addNote }) {
                     value={newNote.desc}
                 />
                     <div className="note-add-actions flex ">
-                        <button><span className="material-symbols-outlined">
+                        <button title="Add image"><span className="material-symbols-outlined">
                             image
                         </span></button>
-                        <button><span className="material-symbols-outlined">
+                        <button title="Add video"><span className="material-symbols-outlined">
                             videocam
                         </span></button>
-                        <button><span className="material-symbols-outlined">
+                        <button title="Todo list"><span className="material-symbols-outlined">
                             select_check_box
                         </span></button>
-                        <button><span className="material-symbols-outlined">
-                            file_copy
-                        </span></button>
-                        <button><span className="material-symbols-outlined">
-                            mail
-                        </span></button>
                     </div></div>}
-            <div><button onClick={() => {
+            <button title="Close" onClick={() => {
                 setIsShown(false)
-            }}>closure</button></div>
+            }}>closure</button>
         </form>
     </div>
 }
