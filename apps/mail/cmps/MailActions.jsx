@@ -1,6 +1,6 @@
 const { useState, useEffect } = React
 
-export function MailActions({ filterBy, onSetFilter }) {
+export function MailActions({ filterBy, onSetFilter, handleSortChange }) {
     const [filterByToEdit, setFilterByToEdit] = useState(filterBy)
 
     useEffect(() => {
@@ -8,21 +8,34 @@ export function MailActions({ filterBy, onSetFilter }) {
     }, [filterByToEdit])
 
 
-    function onSetSortBy({ target }) {
+    function onFilter({ target }) {
         let { value, name: field } = target
         setFilterByToEdit(prevFilterBy => ({ ...prevFilterBy, [field]: value }))
         onSetFilter(filterByToEdit)
     }
 
 
+    function onSetSortBy({ target }) {
+        handleSortChange(target.value)
+    }
+
     return (
-        <label htmlFor="read">
-        <select id="read" htmlFor="read" name="read" onChange={onSetSortBy}>
-            <option value="all">All</option>
-            <option value="read">Read</option>
-            <option value="unread">Unread</option>
-        </select>
-        </label>
+        <section className="mail-actions">
+            <label htmlFor="read">
+                <select id="read" htmlFor="read" name="read" onChange={onFilter}>
+                    <option value="all">All</option>
+                    <option value="read">Read</option>
+                    <option value="unread">Unread</option>
+                </select>
+            </label>
+            <button value="date" onClick={onSetSortBy}>Date <span className="material-symbols-outlined">
+                expand_more
+            </span></button>
+            <button value="subject" onClick={onSetSortBy}>Subject <span className="material-symbols-outlined">
+                expand_more
+            </span></button>
+        </section>
+
     )
 }
 

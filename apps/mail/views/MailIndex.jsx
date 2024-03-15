@@ -45,6 +45,9 @@ export function MailIndex() {
         setFilterBy(prevFilter => ({ ...prevFilter, ...fieldsToUpdate }))
     }
 
+    function handleSortChange(updatedSort) {
+        console.log(updatedSort)
+    }
 
     function sendMail(newMail) {
 
@@ -115,7 +118,7 @@ export function MailIndex() {
                 <Outlet />
 
                 <div className='mail-section'>
-                    < MailActions filterBy={{read}} onSetFilter={onSetFilter} />
+                    < MailActions filterBy={{ read }} onSetFilter={onSetFilter} handleSortChange={handleSortChange} />
                     {!params.mailId && <MailList mails={mails} onRemoveMail={onRemoveMail} />}
                 </div>
                 <span>you have <span>{getUnreadCount(mails)}</span> unread emails</span>
