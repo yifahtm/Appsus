@@ -6,8 +6,8 @@ import { DynamicCmp } from '../cmps/dynamic-inputs/DynamicCmp.jsx'
 
 import { noteService } from "../services/note.service.js"
 
-export function NotePreview({ note, onRemoveNote, onUpdateNote, onChangeStyle }) {
-    const [cmpType, setCmpType] = useState('color')
+export function NotePreview({ note, onRemoveNote, onUpdateNote, onChangeStyle, onDuplicate }) {
+    const [cmpType, setCmpType] = useState(note.type)
     const [previewStyle, setPreviewStyle] = useState({ backgroundColor: 'white' })
     const [isEditing, setIsEditing] = useState(false)
     const [noteToEdit, setNoteToEdit] = useState(note)
@@ -18,7 +18,9 @@ export function NotePreview({ note, onRemoveNote, onUpdateNote, onChangeStyle })
 
     }, [])
 
-
+    function onChangeStyle(newStyle) {
+        setPreviewStyle((prevStyle) => ({ ...prevStyle, ...newStyle }))
+    }
 
     // function onTogglePin() {
     //     noteToEdit.isPinned = !noteToEdit.isPinned
@@ -35,7 +37,7 @@ export function NotePreview({ note, onRemoveNote, onUpdateNote, onChangeStyle })
             onTogglePin()
             setIsPinned((isPin) => !isPin)
             onTogglePin(isPinned)
-        }}><span class="material-symbols-outlined">
+        }}><span className="material-symbols-outlined">
                 keep
             </span></button>
         {!isEditing && <React.Fragment>
@@ -47,33 +49,34 @@ export function NotePreview({ note, onRemoveNote, onUpdateNote, onChangeStyle })
         <div className="note-actions">
             <button value="color" onClick={(ev) => { setCmpType(ev.target.value) }} >
                 <DynamicCmp cmpType={cmpType} onChangeStyle={onChangeStyle} previewStyle={previewStyle} />
-                <span class="material-symbols-outlined">
+                <span className="material-symbols-outlined">
                     palette
                 </span>
             </button>
-            <button><span class="material-symbols-outlined">
+            <button><span className="material-symbols-outlined">
                 image
             </span></button>
-            <button><span class="material-symbols-outlined">
+            <button><span className="material-symbols-outlined">
                 videocam
             </span></button>
-            <button><span class="material-symbols-outlined">
+            <button><span className="material-symbols-outlined">
                 select_check_box
             </span></button>
-            <button><span class="material-symbols-outlined">
+            <button><span className="material-symbols-outlined">
                 file_copy
             </span></button>
-            <button><span class="material-symbols-outlined">
+            <button><span className="material-symbols-outlined">
                 mail
             </span></button>
-            <button className="remove-btn" onClick={() => onRemoveNote(note.id)}><span class="material-symbols-outlined">
+            <button className="remove-btn" onClick={() => onRemoveNote(note.id)}><span className="material-symbols-outlined">
                 delete
-            </span></button>
+            </span>
+            </button>
+            {isEditing && <NoteEdit
+                isEditing={isEditing}
+                setIsEditing={setIsEditing}
+                onUpdateNote={onUpdateNote}
+                noteId={note.id} />}
         </div>
-        {isEditing && <NoteEdit
-            isEditing={isEditing}
-            setIsEditing={setIsEditing}
-            onUpdateNote={onUpdateNote}
-            noteId={note.id} />}
     </article>
 }

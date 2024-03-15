@@ -15,6 +15,7 @@ export function NoteIndex() {
     const [notes, setNotes] = useState(null)
     const { noteId } = useParams()
     const [searchParams, setSearchParams] = useSearchParams()
+    // const [previewStyle, setPreviewStyle] = useState({ backgroundColor: 'white' })
     const [filterBy, setFilterBy] = useState(noteService.getFilterFromParams(searchParams))
 
     useEffect(() => {
@@ -51,23 +52,38 @@ export function NoteIndex() {
     function addNote(note) {
         noteService.save(note)
             .then((updatedNote) => {
-                setNotes(prevNotes => [{ ...updatedNote }, ...prevNotes])
-                showSuccessMsg(`adding ${note.title}`)
+                setNotes(prevNotes => [updatedNote, ...prevNotes])
+                showSuccessMsg(`Successfully saved note #${note.id}`)
             })
 
             .catch(err => {
                 console.log(err)
-                showErrorMsg('already have it.', err)
+                showErrorMsg('Could not save note', err)
             })
     }
 
     function onUpdateNote(noteToUpdate) {
-        setNotes((prevNotes) => prevNotes.map((note) => note.id === noteToUpdate.id ? noteToUpdate : note))
+        noteService.save(noteToUpdate)
+            .then((noteToUpdate) => {
+                setNotes((prevNotes) => prevNotes.map((note) => note.id === noteToUpdate.id ? noteToUpdate : note))
+            })
     }
 
-    function onChangeStyle(newStyle) {
-        setPreviewStyle((prevStyle) => ({ ...prevStyle, ...newStyle }))
+    function onDuplicate(note) {
+        console.log(note);
+        const duplicateNote = { ...note, id: '', createdAt: Date.now() }
+        noteService.save(duplicateNote)
+            .then((saved) => {
+                setNotes((prevNotes) => [saved, ...prevNotes])
+
+                showSuccessMsg('Note copied')
+            })
+            .catch(err => showErrorMsg('could not copy'))
     }
+
+    // function onChangeStyle(newStyle) {
+    //     setPreviewStyle((prevStyle) => ({ ...prevStyle, ...newStyle }))
+    // }
 
     const { title, createdAt, desc } = filterBy
     if (!notes) return <div>loading...</div>
@@ -80,7 +96,8 @@ export function NoteIndex() {
         {/* <NoteFilterDesc
             onSetFilter={onSetFilter}
             filterBy={{ desc }} /> */}
-        <NoteAdd onChangeStyle={onChangeStyle} onRemoveNote={onRemoveNote} addNote={addNote} />
+        <NoteAdd
+            addNote={addNote} />
         {!notes || !notes.length && <p>No notes to display.</p>}
         {!noteId &&
             <ul className="note-container clean-list  ">
@@ -93,7 +110,8 @@ export function NoteIndex() {
                                 note={note}
                                 onRemoveNote={onRemoveNote}
                                 onUpdateNote={onUpdateNote}
-                                onChangeStyle={onChangeStyle}
+                                // onChangeStyle={onChangeStyle}
+                                onDuplicate={onDuplicate}
                             />
                             {/* </Link> */}
                         </li>)
