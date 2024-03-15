@@ -21,6 +21,8 @@ export function MailDetails() {
         loadMail()
     }, [params.mailId])
 
+    if (mail) console.log(mail.isRead)
+
     function loadMail() {
         setIsLoading(true)
         mailService

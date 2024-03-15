@@ -1,7 +1,8 @@
 const { useState, useEffect } = React
 
-export function MailActions({ filterBy, onSetFilter, handleSortChange }) {
+export function MailActions({ filterBy, onSetFilter, sortBy, handleSortChange }) {
     const [filterByToEdit, setFilterByToEdit] = useState(filterBy)
+    const [sortByToEdit, setSortByToEdit] = useState(sortBy)
 
     useEffect(() => {
         onSetFilter(filterByToEdit)
@@ -16,7 +17,18 @@ export function MailActions({ filterBy, onSetFilter, handleSortChange }) {
 
 
     function onSetSortBy({ target }) {
-        handleSortChange(target.value)
+        let { value } = target
+        if (!value) return
+        console.log(value)
+        // if (sortByToEdit.value) sortByToEdit.value === 1 ? -1 : 1
+        setSortByToEdit(prevSortBy => ({ ...prevSortBy, [value]: 1 }))
+        handleSortChange(sortByToEdit)
+    }
+
+    function onChangeDir({ target }) {
+        //    var newDir = dir === -1 ? 1 : -1
+        //    setDir(newDir)
+        //    console.log(dir)
     }
 
     return (
@@ -28,12 +40,17 @@ export function MailActions({ filterBy, onSetFilter, handleSortChange }) {
                     <option value="unread">Unread</option>
                 </select>
             </label>
-            <button value="date" onClick={onSetSortBy}>Date <span className="material-symbols-outlined">
-                expand_more
-            </span></button>
-            <button value="subject" onClick={onSetSortBy}>Subject <span className="material-symbols-outlined">
-                expand_more
-            </span></button>
+            <button value="date" onClick={onSetSortBy}>Date
+                {/* <span className="material-symbols-outlined">
+                    expand_more
+                </span> */}
+            </button>
+            <button value="subject" onClick={onSetSortBy}>Subject
+                {/* <span
+                    className="material-symbols-outlined">
+                    expand_more
+                </span> */}
+            </button>
         </section>
 
     )

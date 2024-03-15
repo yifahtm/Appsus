@@ -2,9 +2,12 @@ const { Link } = ReactRouterDOM
 
 import { MailPreview } from "./MailPreview.jsx"
 
-export function MailList({ mails, onRemoveMail }) {
+export function MailList({ mails, onRemoveMail, isViewSent }) {
   if (!mails || !mails.length)
     return <div className="nothing-to-show">No mails to show</div>
+
+  if (isViewSent) mails = mails.filter(mail => mail.from === 'user@appsus.com')
+  else mails = mails.filter(mail => mail.from !== 'user@appsus.com')
 
   function getClassName(mail) {
     return mail.isRead ? 'mail-li read' : 'mail-li unread'
@@ -30,6 +33,6 @@ export function MailList({ mails, onRemoveMail }) {
           </div>
         </li>
       ))}
-     </ul>
+    </ul>
   )
 }
