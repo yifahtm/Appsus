@@ -13,12 +13,13 @@ export function MailIndex() {
     const [filterBy, setFilterBy] = useState(mailService.getDefaultFilter())
     const [isOnCompose, setIsOnCompose] = useState(false)
     const [isSent, setIsSent] = useState(false)
+    const [sortBy, setSortBy] = useState(mailService.getDefaultSortBy())
 
     const params = useParams()
 
     useEffect(() => {
         loadMails()
-        
+
     }, [isSent, filterBy])
     // //filter by in the empty array
     function loadMails() {
@@ -41,11 +42,9 @@ export function MailIndex() {
     }
 
     function onSetFilter(fieldsToUpdate) {
-        setFilterBy(fieldsToUpdate)
+        setFilterBy(prevFilter => ({ ...prevFilter, ...fieldsToUpdate }))
     }
 
-    
-    
 
     function sendMail(newMail) {
 
@@ -67,9 +66,12 @@ export function MailIndex() {
     }
 
     function getUnreadCount(mails) {
-        if (!mails) return 
+        if (!mails) return
         return mails.filter(mail => mail.isRead === true).length
     }
+
+    const { search } = filterBy
+    const { read } = filterBy
 
     return (
         <section className="mail-container">
@@ -113,7 +115,7 @@ export function MailIndex() {
                 <Outlet />
 
                 <div className='mail-section'>
-                    < MailActions />
+                    < MailActions filterBy={{read}} onSetFilter={onSetFilter} />
                     {!params.mailId && <MailList mails={mails} onRemoveMail={onRemoveMail} />}
                 </div>
                 <span>you have <span>{getUnreadCount(mails)}</span> unread emails</span>
