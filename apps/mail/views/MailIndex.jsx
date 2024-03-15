@@ -16,8 +16,8 @@ export function MailIndex() {
     const params = useParams()
 
     useEffect(() => {
-        loadMails()
-    }, [isSent])
+        loadMails(filterBy)
+    }, [isSent,filterBy])
     // //filter by in the empty array
     function loadMails() {
         mailService
@@ -37,6 +37,11 @@ export function MailIndex() {
                 console.log('Has issues with removing mail', err)
             })
     }
+
+    function onSetFilter(fieldsToUpdate) {
+        setFilterBy(fieldsToUpdate)
+      }
+    
 
     function sendMail(newMail) {
 
@@ -59,15 +64,19 @@ export function MailIndex() {
 
     return (
         <section className="mail-container">
+            <div className="compose">
+                    {isOnCompose && (
+                    < MailCompose sendMail={sendMail} onCloseCompose={onCloseCompose} />)}
+                </div>
             <div className='mail-header'>
-                <button>
-                    <span className="material-symbols-outlined" onClick={() => setIsOnCompose(true)}>
+                <button className="compose-btn" onClick={() => setIsOnCompose(true)}>
+                    <span className="material-symbols-outlined" >
                         edit
                     </span>
                     compose
                 </button>
 
-                <MailFilter />
+                <MailFilter filterBy={filterBy} onSetFilter={onSetFilter} />
 
             </div>
 
@@ -95,12 +104,10 @@ export function MailIndex() {
                 <Outlet />
 
                 <div className='mail-section'>
-                    {!params.mailId && <MailList mails={mails} onRemoveMail={onRemoveMail} />}
+                    {!params.mailId && <MailList mails={mails} onRemoveMail={onRemoveMail}/>}
                 </div>
 
-                <div className="compose">
-                    {isOnCompose && (< MailCompose sendMail={sendMail} onCloseCompose={onCloseCompose} />)}
-                </div>
+                
 
 
             </section>

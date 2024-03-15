@@ -1,13 +1,20 @@
+const { useState, useEffect } = React
 
+export function MailFilter({ filterBy, onSetFilter }) {
+    const [filterByToEdit, setFilterByToEdit] = useState(filterBy)
 
-export function MailFilter() {
+    useEffect(() => {
+        onSetFilter(filterByToEdit)
+      }, [filterByToEdit])
 
     function onFilter(ev) {
         ev.preventDefault()
+        onSetFilter(filterByToEdit)
     }
 
     function handleChange({ target }) {
-        console.log(target)
+        let { value} = target
+        setFilterByToEdit(value)
     }
 
     return (
@@ -18,9 +25,10 @@ export function MailFilter() {
             <input type="text"
                 id="search"
                 name="search"
-                value=" "
+                value={filterByToEdit}
                 onChange={handleChange}
-                placeholder="search" />
+                placeholder="search"/>
+                
 
             <button>
                 <span className="material-symbols-outlined">
