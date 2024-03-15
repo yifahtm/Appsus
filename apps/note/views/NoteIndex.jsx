@@ -9,14 +9,13 @@ import { NoteFilter } from './../cmps/NoteFilter.jsx'
 
 import { noteService } from './../services/note.service.js'
 import { NoteAdd } from "../cmps/NoteAdd.jsx"
-// import { eventBusService, showErrorMsg, showSuccessMsg } from '../services/event-bus.service.js'
+import { eventBusService, showErrorMsg, showSuccessMsg } from '../services/event-bus.service.js'
 
 export function NoteIndex() {
     const [notes, setNotes] = useState(null)
     const { noteId } = useParams()
     const [searchParams, setSearchParams] = useSearchParams()
     const [filterBy, setFilterBy] = useState(noteService.getFilterFromParams(searchParams))
-
 
     useEffect(() => {
         setSearchParams(filterBy)
@@ -41,11 +40,11 @@ export function NoteIndex() {
         noteService.remove(noteId)
             .then(() => {
                 setNotes((prevNotes) => prevNotes.filter(note => note.id !== noteId))
-                // showSuccessMsg(`Note removed successfully (${noteId})`)
+                showSuccessMsg(`Note removed successfully (${noteId})`)
             })
             .catch((err) => {
                 console.log('Had issues removing note', err)
-                // showErrorMsg(`Could not remove note #(${noteId})`)
+                showErrorMsg(`Could not remove note #(${noteId})`)
             })
     }
 
@@ -53,12 +52,12 @@ export function NoteIndex() {
         noteService.save(note)
             .then((updatedNote) => {
                 setNotes(prevNotes => [{ ...updatedNote }, ...prevNotes])
-                // showSuccessMsg(`adding ${note.title}`)
+                showSuccessMsg(`adding ${note.title}`)
             })
 
             .catch(err => {
                 console.log(err)
-                // showErrorMsg('already have it.', err)
+                showErrorMsg('already have it.', err)
             })
     }
 

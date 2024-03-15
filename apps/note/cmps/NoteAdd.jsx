@@ -13,23 +13,20 @@ export function NoteAdd({ onChangeStyle, onRemoveNote, addNote }) {
     function handleChange({ target }) {
         const field = target.name
         const value = target.value
-        // console.log(target);
         setNewNote((prevNote) => ({ ...prevNote, [field]: value }))
-        // console.log(newNote);
     }
 
     function onAddNote(ev) {
         ev.preventDefault()
         addNote(newNote)
-        // console.log(newNote);
     }
 
     // const { title, txt } = newNote
     return <div style={previewStyle} className="add-note flex justify-center">
         <form className="note-add-form flex column" onSubmit={onAddNote}>
-            {/* <label htmlFor="add"></label> */}
+            <label htmlFor="add"></label>
             <input onClick={() => setIsShown(true)}
-                placeholder="New note..."
+                placeholder={`${isShown ? 'Title' : 'New note...'}`}
                 type="text"
                 id="add"
                 name="title"
