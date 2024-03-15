@@ -6,9 +6,10 @@ import { DynamicCmp } from '../cmps/dynamic-inputs/DynamicCmp.jsx'
 
 import { noteService } from "../services/note.service.js"
 
-export function NotePreview({ note, onRemoveNote, onUpdateNote, onChangeStyle, onDuplicate }) {
-    const [cmpType, setCmpType] = useState(note.type)
+export function NotePreview({ note, onRemoveNote, onUpdateNote, onDuplicate }) {
+    const [cmpType, setCmpType] = useState('color')
     const [previewStyle, setPreviewStyle] = useState({ backgroundColor: 'white' })
+    const [isPalleteShown, setIsPalleteShown] = useState(false)
     const [isEditing, setIsEditing] = useState(false)
     const [noteToEdit, setNoteToEdit] = useState(note)
     const [isPinned, setIsPinned] = useState(note.isPinned)
@@ -62,7 +63,7 @@ export function NotePreview({ note, onRemoveNote, onUpdateNote, onChangeStyle, o
             <button><span className="material-symbols-outlined">
                 select_check_box
             </span></button>
-            <button><span className="material-symbols-outlined">
+            <button onClick={() => onDuplicate(note)}><span className="material-symbols-outlined">
                 file_copy
             </span></button>
             <button><span className="material-symbols-outlined">

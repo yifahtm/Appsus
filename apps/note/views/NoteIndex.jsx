@@ -64,8 +64,8 @@ export function NoteIndex() {
 
     function onUpdateNote(noteToUpdate) {
         noteService.save(noteToUpdate)
-            .then((noteToUpdate) => {
-                setNotes((prevNotes) => prevNotes.map((note) => note.id === noteToUpdate.id ? noteToUpdate : note))
+            .then((saved) => {
+                setNotes((prevNotes) => prevNotes.map((note) => note.id === saved.id ? saved : note))
             })
     }
 
@@ -78,7 +78,7 @@ export function NoteIndex() {
 
                 showSuccessMsg('Note copied')
             })
-            .catch(err => showErrorMsg('could not copy'))
+            .catch(err => showErrorMsg('could not copy', err))
     }
 
     // function onChangeStyle(newStyle) {
@@ -110,7 +110,6 @@ export function NoteIndex() {
                                 note={note}
                                 onRemoveNote={onRemoveNote}
                                 onUpdateNote={onUpdateNote}
-                                // onChangeStyle={onChangeStyle}
                                 onDuplicate={onDuplicate}
                             />
                             {/* </Link> */}
