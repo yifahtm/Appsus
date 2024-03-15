@@ -1,6 +1,6 @@
 export function ColorInput({ onChangeStyle, previewStyle }) {
     console.log(previewStyle)
-    const colors = ['#B4FF9F', '#F9FFA4', '#FFD59E', '#FFA1A1', '#ffffff']
+    const colors = ['#B4FF9F', '#F9FFA4', '#FFD59E', '#FFA1A1', '#FFFFFF']
 
     function onSetColor(color) {
         const style = { backgroundColor: color }
