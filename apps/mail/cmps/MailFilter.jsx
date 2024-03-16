@@ -19,23 +19,22 @@ export function MailFilter({ filterBy, onSetFilter }) {
 
     let {search } = filterByToEdit
     return (
-        <form onSubmit={onFilter}>
-            <label htmlFor="search">
-
-            </label>
+        <div>
+        <form className="search" onSubmit={onFilter}>
+            {/* <label htmlFor="search">
+            </label> */}
             <input type="text"
                 id="search"
                 name="search"
                 value={search}
                 onChange={handleChange}
                 placeholder="search" />
-
-
             <button>
                 <span className="material-symbols-outlined">
                     search
                 </span>
             </button>
         </form>
+        </div>
     )
 }
