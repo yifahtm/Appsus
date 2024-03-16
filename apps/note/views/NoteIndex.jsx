@@ -92,13 +92,18 @@ export function NoteIndex() {
     return <section className="note-index">
         <NoteFilter
             onSetFilter={onSetFilter}
-            filterBy={{ title, createdAt, desc }} />
+            filterBy={filterBy} />
 
         {/* <NoteFilterDesc
             onSetFilter={onSetFilter}
             filterBy={{ desc }} /> */}
+        {/* {notes.find(note=> {return note.id===noteId */}
         <NoteAdd
-            addNote={addNote} />
+            addNote={addNote}
+        // onUpdateNote={onUpdateNote}
+        // note={note}
+        />
+        {/* )} */}
         {!notes || !notes.length && <p>No notes to display.</p>}
         {!noteId &&
             <ul className="note-container clean-list  ">
@@ -117,6 +122,6 @@ export function NoteIndex() {
                         </li>)
                     )}
             </ul>}
-        {/* <Outlet context={[onUpdateNote]}></Outlet> */}
+        <Outlet context={[onUpdateNote]}></Outlet>
     </section >
 }
