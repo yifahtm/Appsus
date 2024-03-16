@@ -12,7 +12,7 @@ export function NotePreview({ note, onRemoveNote, onUpdateNote, onDuplicate }) {
     const [cmpType, setCmpType] = useState(note.type)
     const [previewStyle, setPreviewStyle] = useState({ backgroundColor: 'white' })
     const [isPallete, setIsPallete] = useState(false)
-    const [isEditing, setIsEditing] = useState(false)
+    const [isEdit, setIsEdit] = useState(false)
     const [noteToEdit, setNoteToEdit] = useState(note)
     const [isPinned, setIsPinned] = useState(note.isPinned)
 
@@ -25,24 +25,15 @@ export function NotePreview({ note, onRemoveNote, onUpdateNote, onDuplicate }) {
         setPreviewStyle((prevStyle) => ({ ...prevStyle, ...newStyle }))
     }
 
-    // function onChangeColor(color) {
-    //     noteToEdit.style.backgroundColor = color
-    //     noteService.save(noteToEdit)
-    //         .then((savedNote) => {
-    //             setNoteToEdit({ ...savedNote })
-    //             setIsColorPicker(false)
-    //         })
-    // }
-
     function onTogglePin() {
         noteToEdit.isPinned = !noteToEdit.isPinned
         onUpdateNote(noteToEdit)
     }
 
     if (!note) return <div>loading...</div>
-    return <article style={previewStyle} onClick={() => setIsEditing(true)} className="note-preview flex column">
+    return <article style={previewStyle} onClick={() => setIsEdit(true)} className="note-preview flex column">
 
-        <button title={isPinned ? "Unpin" : "Pin"} className="pin" onClick={() => {
+        <button title={isPinned ? "Unpin" : "Pin"} className="btn-note pin" onClick={() => {
             onTogglePin()
             setIsPinned((prevIsPin) => !prevIsPin)
             // onTogglePin(isPinned)
@@ -54,7 +45,6 @@ export function NotePreview({ note, onRemoveNote, onUpdateNote, onDuplicate }) {
             onUpdateNote={onUpdateNote}
             note={note}
             cmpType={cmpType}
-        // onChangeStyle={onChangeStyle} previewStyle={previewStyle} 
         />
 
         {
@@ -69,33 +59,41 @@ export function NotePreview({ note, onRemoveNote, onUpdateNote, onDuplicate }) {
         </React.Fragment>
         } */}
 
-        <div className="note-actions">
-            <button title="Pick a color"
-                onClick={() => { setIsPallete((prevIsPallete) => !prevIsPallete) }}
-            >  {/*value="color" 
-            onClick={(ev) => { setCmpType(ev.target.value) }}   */}
-
-                {/* <DynamicCmp cmpType={cmpType} onChangeStyle={onChangeStyle} previewStyle={previewStyle} /> */}
+        <div className="note-actions flex wrap">
+            <button className="btn-note" title="Pick a color"
+                onClick={() => { setIsPallete((prevIsPallete) => !prevIsPallete) }}>
                 <span className="material-symbols-outlined">
                     palette
                 </span>
             </button>
-            <button title="Add image"><span className="material-symbols-outlined">
+            <button className="btn-note" onclick={() => setCmpType('NoteImg')} title="Add image"><span className="material-symbols-outlined">
                 image
             </span></button>
-            <button title="Add video"><span className="material-symbols-outlined">
+            <button className="btn-note" onclick={() => setCmpType('NoteVideo')} title="Add video"><span className="material-symbols-outlined">
                 videocam
             </span></button>
-            <button title="Todo list"><span className="material-symbols-outlined">
+            <button className="btn-note" onclick={() => setCmpType('NoteTodo')} title="Todo list"><span className="material-symbols-outlined">
                 select_check_box
             </span></button>
-            <button title="Copy note" onClick={() => onDuplicate(note)}><span className="material-symbols-outlined">
+            <button className="btn-note" title="ADD audio"><span class="material-symbols-outlined">
+                music_note
+            </span></button>
+            <button className="btn-note" title="Add scribble"><span class="material-symbols-outlined">
+                brush
+            </span></button>
+            <button className="btn-note" title="Add map"><span class="material-symbols-outlined">
+                pin_drop
+            </span></button>
+            <button className="btn-note" title="Add voice message"><span class="material-symbols-outlined">
+                mic
+            </span></button>
+            <button className="btn-note" title="Copy note" onClick={() => onDuplicate(note)}><span className="material-symbols-outlined">
                 file_copy
             </span></button>
-            <button title="Share"><span className="material-symbols-outlined">
+            <button className="btn-note" title="Share"><span className="material-symbols-outlined">
                 mail
             </span></button>
-            <button title="Delete" className="remove-btn" onClick={() => onRemoveNote(note.id)}><span className="material-symbols-outlined">
+            <button className="btn-note remove-btn" title="Delete" onClick={() => onRemoveNote(note.id)}><span className="material-symbols-outlined">
                 delete
             </span>
             </button>

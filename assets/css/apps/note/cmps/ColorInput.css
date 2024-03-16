@@ -1,12 +1,10 @@
 .items-container {
-    background-color: var(--clr1bg-light);
     padding: 20px;
     display: flex;
     gap: 10px;
 }
 
 .item {
-    background-color: var(--clr2bg);
     padding: 5px;
     min-height: 40px;
     min-width: 40px;
