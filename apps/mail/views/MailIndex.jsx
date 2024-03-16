@@ -23,7 +23,7 @@ export function MailIndex() {
     useEffect(() => {
         loadMails()
 
-    }, [isSent, filterBy, sortBy, isStarred, isTrash, isRemoved])
+    }, [isSent, filterBy, sortBy])
 
     function loadMails() {
         console.log('i restarted!!')
@@ -33,15 +33,15 @@ export function MailIndex() {
             .catch(err => console.log('Had issues with loading mails: ', err))
             .finally(setIsSent(false))
             .finally(setIsStarred(false))
+            .finally(setIsTrash(false))
     }
 
-    console.log(mails)
 
     function onRemoveMail(mail) {
         if (isTrash) {
             mailService.remove(mail.id)
                 .then(() => {
-                    setMails((prevMails) => prevMails.filter(mail => mail.id !== mailId))
+                    setMails((prevMails) => prevMails.filter(m => m.id !== mail.id))
                     console.log('i did it!')
                 })
                 .catch((err) => {

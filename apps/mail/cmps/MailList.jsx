@@ -11,11 +11,10 @@ export function MailList({ mails, onRemoveMail, isViewSent, setIsStarred, isTras
   // else mails = mails.filter(mail => mail.from !== 'user@appsus.com')
   if (isTrash) {
     mails = mails.filter(mail => mail.removedAt !== null)
-  } else {
-    mails = mails.filter(mail => mail.removedAt === null)
-  }
+  } 
+  if (!isTrash) mails = mails.filter(mail => mail.removedAt === null) 
+  
 
-  console.log(isTrash)
   function getClassName(mail) {
     return mail.isRead ? 'mail-li read' : 'mail-li unread'
   }
@@ -36,9 +35,7 @@ export function MailList({ mails, onRemoveMail, isViewSent, setIsStarred, isTras
   function onStarClick(mail) {
     mail.isStarred === true ? mail.isStarred = false : mail.isStarred = true
     mailService.editMail(mail)
-    console.log(mail)
-    setIsStarred(true)
-
+  
   }
 
 
