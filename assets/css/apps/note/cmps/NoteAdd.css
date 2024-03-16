@@ -27,6 +27,12 @@
     font-size: 1em;
 }
 
+.note-add .btn-closure {
+    width: fit-content;
+    padding: 1em 2em;
+    border-radius: 10px;
+}
+
 /* .note-add img {
     z-index: -1;
     position: absolute;

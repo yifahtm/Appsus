@@ -52,20 +52,8 @@ export function NoteAdd({ addNote }) {
                         <button className="btn-note" title="Add Todo list"><span className="material-symbols-outlined">
                             select_check_box
                         </span></button>
-                        <button className="btn-note" title="Add audio"><span class="material-symbols-outlined">
-                            music_note
-                        </span></button>
-                        <button className="btn-note" title="Add scribble"><span class="material-symbols-outlined">
-                            brush
-                        </span></button>
-                        <button className="btn-note" title="Add map"><span class="material-symbols-outlined">
-                            pin_drop
-                        </span></button>
-                        <button className="btn-note" title="Add voice message"><span class="material-symbols-outlined">
-                            mic
-                        </span></button>
                     </div></div>}
-            <button className="btn-note" title="Close" onClick={() => {
+            <button className="btn-note btn-closure" title="Close" onClick={() => {
                 setIsShown(false)
             }}>closure</button>
         </form>
