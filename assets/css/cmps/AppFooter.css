@@ -1,11 +1,27 @@
-header {
-
-    background: lightcyan;
+footer {
+    background: hsl(221, 92%, 85%);
     border-bottom: 2px solid white;
 }
 
-.app-header {
-    display: flex;
-    justify-content: space-between;
+.app-footer {
     padding: 20px 0;
+}
+
+.footer-logo {
+    width: fit-content;
+    margin: auto
+}
+
+.app-footer p,
+.app-footer small {
+    margin: 20px;
+}
+
+.app-footer p span:hover {
+    color: #4f0173;
+    font-weight: bold;
+}
+
+.app-footer p span {
+    color: #4f0173;
 }
