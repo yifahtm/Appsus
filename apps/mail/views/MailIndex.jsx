@@ -26,7 +26,6 @@ export function MailIndex() {
     }, [isSent, filterBy, sortBy, isViewSent])
 
     function loadMails() {
-        console.log('i restarted!!')
         mailService
             .query(filterBy, sortBy)
             .then(setMails)
@@ -97,6 +96,7 @@ export function MailIndex() {
         setIsViewSent(false)
         setIsTrash(false)
         setIsRemoved(false)
+        setCategory()
     }
 
     function getUnreadCount(mails) {
