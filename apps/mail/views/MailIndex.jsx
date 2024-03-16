@@ -23,7 +23,7 @@ export function MailIndex() {
     useEffect(() => {
         loadMails()
 
-    }, [isSent, filterBy, sortBy])
+    }, [isSent, filterBy, sortBy, isViewSent])
 
     function loadMails() {
         console.log('i restarted!!')
