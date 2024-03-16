@@ -3,7 +3,7 @@ const { Link, Outlet } = ReactRouterDOM
 
 export function About() {
     return (
-        <section>
+        <section className="about">
             <h1>About Us</h1>
             <nav>
                 <Link to="/about/team">Team</Link> |
