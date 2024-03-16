@@ -39,7 +39,9 @@ function query(filterBy = getDefaultFilter(), sortBy = getDefaultSortBy()) {
             if (sortBy.subject !== undefined) {
                 mails = mails.sort((m1, m2) => m1.subject.localeCompare(m2.subject) * sortBy.subject)
             }
-
+            if (sortBy.date !== undefined) {
+                mails = mails.sort((m1, m2) => (new Date(m1.sentAt) - new Date(m2.sentAt)) * sortBy.date)
+            }
             return mails
         })
 }
@@ -125,7 +127,7 @@ function _createMails() {
             body: 'I just met you... and this is crazy',
             isRead: true,
             isStarred: false,
-            sentAt: 1551133930594,
+            sentAt: 1679075200000,
             removedAt: null,
             from: 'dingo@momo.com',
             to: 'user@appsus.com'
@@ -136,7 +138,7 @@ function _createMails() {
             body: 'How do i use this?',
             isRead: false,
             isStarred: false,
-            sentAt: 1551133930594,
+            sentAt: 1647478755000,
             removedAt: null,
             from: 'user@appsus.com',
             to: 'dingo@momo.com'
@@ -147,10 +149,10 @@ function _createMails() {
             body: 'How do i use this?',
             isRead: true,
             isStarred: true,
-            sentAt: 1551133930594,
+            sentAt: 1681185600000,
             removedAt: null,
-            from: 'user@appsus.com',
-            to: 'dingo@momo.com'
+            from: 'fakemail@fakemail',
+            to: 'user@appsus.com'
         },
         {
             id: utilService.makeId(),
@@ -158,10 +160,10 @@ function _createMails() {
             body: 'did this sorting shit work?',
             isRead: false,
             isStarred: true,
-            sentAt: 1551133930594,
+            sentAt: 1685001600000,
             removedAt: null,
-            from: 'user@appsus.com',
-            to: 'lolo@haha.com'
+            from: 'lolo@haha.com',
+            to: 'user@appsus.com'
         },]
         utilService.saveToStorage(MAIL_KEY, mails)
     }

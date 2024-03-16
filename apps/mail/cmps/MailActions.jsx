@@ -24,7 +24,7 @@ export function MailActions({ filterBy, onSetFilter, sortBy, onSortChange }) {
         onSortChange({ [sortByKey]: 1 })
     }
 
-
+//'▲' : '▼';
 
     return (
         <section className="mail-actions">
@@ -35,12 +35,12 @@ export function MailActions({ filterBy, onSetFilter, sortBy, onSortChange }) {
                     <option value="unread">Unread</option>
                 </select>
             </label>
-            <button onClick={() => handleSortChange('date')}>Date
+            <button onClick={() => handleSortChange('date')}> ▼ Date
                 {/* <span className="material-symbols-outlined">
                     expand_more
                 </span> */}
             </button>
-            <button onClick={() => handleSortChange('subject')}>Subject
+            <button onClick={() => handleSortChange('subject')}>▼ Subject 
                 {/* <span
                     className="material-symbols-outlined">
                     expand_more

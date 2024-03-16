@@ -2,6 +2,7 @@ const { Link } = ReactRouterDOM
 
 import { MailPreview } from "./MailPreview.jsx"
 
+
 export function MailList({ mails, onRemoveMail, isViewSent }) {
   if (!mails || !mails.length)
     return <div className="nothing-to-show">No mails to show</div>
@@ -11,6 +12,13 @@ export function MailList({ mails, onRemoveMail, isViewSent }) {
 
   function getClassName(mail) {
     return mail.isRead ? 'mail-li read' : 'mail-li unread'
+  }
+
+  function formatDate(sentAt) {
+    const date = new Date(sentAt)
+    const month = date.toLocaleString('default', { month: 'short' })
+    const day = date.getDate()
+    return `${month} ${day}`
   }
 
   return (
@@ -29,6 +37,9 @@ export function MailList({ mails, onRemoveMail, isViewSent }) {
             </span>
             <span className="material-symbols-outlined" onClick={() => onRemoveMail(mail.id)}>
               delete
+            </span>
+            <span>
+              {formatDate(mail.sentAt)}
             </span>
           </div>
         </li>

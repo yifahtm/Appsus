@@ -3,6 +3,7 @@ const { useParams, useNavigate } = ReactRouter
 const { Link } = ReactRouterDOM
 
 import { mailService } from '../services/mail.service.js'
+import { utilService } from '../../../services/util.service.js'
 
 export function MailDetails() {
     const [isLoading, setIsLoading] = useState(true)
@@ -12,7 +13,6 @@ export function MailDetails() {
     const params = useParams()
     const navigate = useNavigate()
 
-    readMail()
 
     function removeMail() {
         mailService.remove(params.mailId)
@@ -28,7 +28,6 @@ export function MailDetails() {
         loadMail()
     }, [params.mailId])
 
-    // if (mail) console.log(mail.isRead)
 
     function loadMail() {
         setIsLoading(true)
@@ -42,12 +41,16 @@ export function MailDetails() {
             .finally(() => setIsLoading(false))
     }
 
+
+
     if (isLoading) return <div className="nothing to show">Loading...</div>
 
     return (
         <div className="mail-display">
             <h1>{mail.subject}</h1>
             <h2>{mail.to}</h2>
+            <h3>{utilService.getFormattedDate(mail.sentAt)}</h3>
+            <h4>{utilService.elapsedTime(mail.sentAt)}</h4>
             <p>{mail.body}</p>
             <span className="material-symbols-outlined" onClick={() => removeMail(mail.id)}>
                 delete
