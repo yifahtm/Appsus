@@ -25,7 +25,7 @@ export function MailIndex() {
 
     }, [isSent, filterBy, sortBy, isTrash])
 
-
+   
     function loadMails() {
 
         if (isTrash) {
@@ -59,7 +59,7 @@ export function MailIndex() {
         setFilterBy(prevFilter => ({ ...prevFilter, ...fieldsToUpdate }))
     }
 
-    function onSortChange(newSortBy){
+    function onSortChange(newSortBy) {
         setSortBy(newSortBy)
     }
 

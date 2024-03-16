@@ -82,9 +82,12 @@ function getDefaultSortBy() {
 
 function _createMail({ subject, to, body }) {
     const mail = getEmptyMail()
+    let date = new Date()
     mail.subject = subject
     mail.to = to
     mail.body = body
+    mail.sentAt = date.getTime()
+
     return mail
 }
 
