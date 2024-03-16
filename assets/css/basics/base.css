@@ -1,7 +1,12 @@
 body {
-    margin: 0;
+    overflow-x: hidden;
+
     box-sizing: border-box;
-    color: var(--main-font-color)
+    color: var(--main-font-color);
+}
+
+#root {
+    margin-bottom: 160px;
 }
 
 h1,
