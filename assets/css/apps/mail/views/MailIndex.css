@@ -11,8 +11,8 @@
     align-items: flex-start;
  }
 
- .side-nav a{
-   margin: 0;
+ .side-nav a {
+    margin: 0;
  }
 
  .mail-section {
@@ -66,8 +66,8 @@
  }
 
  .mail-compose {
-   position: sticky;
-   bottom: 0;
+    position: sticky;
+    bottom: 0;
  }
 
  .mail-display {
@@ -84,9 +84,9 @@
  }
 
  .read {
-   background-color: blue;
+    background-color: rgb(0, 255, 89);
  }
 
  .unread {
-   background-color: pink;
+    background-color: rgb(252, 7, 47);
  }

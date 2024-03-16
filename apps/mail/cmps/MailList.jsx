@@ -1,4 +1,4 @@
-const { Link } = ReactRouterDOM
+const { Link, NavLink } = ReactRouterDOM
 
 import { MailPreview } from "./MailPreview.jsx"
 
@@ -21,17 +21,19 @@ export function MailList({ mails, onRemoveMail, isViewSent }) {
     return `${month} ${day}`
   }
 
+
   return (
     <ul className="mail-list clean-list">
       {mails.map(mail => (
         <li key={mail.id} className={getClassName(mail)}>
-          <Link to={`/mail/${mail.id}`}>
-            <MailPreview mail={mail} />
-          </Link>
-          <div className="mail-actions">
-            <span className="material-symbols-outlined">
+          <NavLink to={`/mail/${mail.id}`}> 
+          <span className="material-symbols-outlined">
               star
             </span>
+            <MailPreview mail={mail} />
+          </NavLink>
+          <div className="mail-actions">
+           
             <span className="material-symbols-outlined">
               mark_email_unread
             </span>
