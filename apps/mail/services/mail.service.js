@@ -35,7 +35,7 @@ function query(filterBy = getDefaultFilter(), sortBy = getDefaultSortBy()) {
             if (filterBy.read === 'unread') {
                 mails = mails.filter(mail => !mail.isRead)
             }
-            if (filterBy.starred) {
+            if (filterBy.category === 'starred') {
                 mails = mails.filter(mail => mail.isStarred)
             }
             if (sortBy.subject !== undefined) {
@@ -117,7 +117,7 @@ function getEmptyMail() {
 }
 
 function getDefaultFilter() {
-    return { search: '', read: 'all', starred: false}
+    return { search: '', read: 'all', category: null}
 }
 
 

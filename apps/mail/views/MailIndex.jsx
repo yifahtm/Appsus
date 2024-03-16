@@ -24,9 +24,7 @@ export function MailIndex() {
 
     }, [isSent, filterBy, sortBy, isStarred])
 
-    console.log(mails)
     function loadMails() {
-        // console.log('i restarted!')
         mailService
             .query(filterBy, sortBy)
             .then(setMails)
@@ -55,6 +53,17 @@ export function MailIndex() {
         setSortBy(newSortBy)
     }
 
+    function setCategory(){
+        let field = 'category'
+        setFilterBy(prevFilterBy => ({ ...prevFilterBy, [field]: null })) 
+    }
+
+    function handelFilterChange(value) {
+        console.log(value)
+        let field = 'category'
+        setFilterBy(prevFilterBy => ({ ...prevFilterBy, [field]: value }))
+        console.log(filterBy)
+    }
 
     function sendMail(newMail) {
 
@@ -114,7 +123,7 @@ export function MailIndex() {
 
 
                     <div className="nav-icon">
-                        <span className="material-symbols-outlined">
+                        <span onClick={() => handelFilterChange('starred')} className="material-symbols-outlined">
                             star
                         </span>
                         <h2>Starred</h2>
@@ -131,8 +140,8 @@ export function MailIndex() {
                         </span>
                         <h2>Draft</h2>
                     </div>
-                    <div className="nav-icon" >
-                        <span className="material-symbols-outlined" onClick={() => setIsTrash(true)}>
+                    <div className="nav-icon" onClick={() => handelFilterChange('delete')}>
+                        <span className="material-symbols-outlined">
                             delete
                         </span>
                         <h2>Trash</h2>
