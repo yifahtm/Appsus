@@ -21,7 +21,12 @@ export function MailCompose({ sendMail, onCloseCompose }) {
 
     return (
         <div className="mail-compose">
-            <button onClick={onCloseCompose}>x</button>
+            <div className="newMessage">
+              <button className="x" onClick={onCloseCompose}>X</button>
+            <h1 >New Message</h1>  
+            </div>
+            
+
             <form onSubmit={onSendMail}>
                 <div className="input-container">
                     <input
@@ -67,7 +72,7 @@ export function MailCompose({ sendMail, onCloseCompose }) {
                     />
                 </div>
 
-                <button>Send</button>
+                <button className="send">Send</button>
             </form>
         </div>
     )

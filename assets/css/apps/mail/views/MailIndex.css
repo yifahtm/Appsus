@@ -91,13 +91,57 @@
     gap: 10px;
  }
 
+
  .mail-compose {
-    position: sticky;
-    bottom: 500px;
+   background-color: white;
+    position: absolute;
+    left: 50%;
+    right: 50%;
     display: flex;
-    border: black solid 1px;
-    width: 40vh;
-    font-size: 18px;
+    flex-direction: column;
+    width: 70vh;
+    font-size: 22px;
+    box-shadow: 5px 2px 2px grey;
+ }
+
+ .x {
+   font-size: 20px;
+ }
+
+ .mail-compose button {
+    border: none;
+    align-self: flex-start;
+ }
+
+ .send {
+   background-color:blue ;
+   color: white;
+   border-radius: 10px;
+   width:50px;
+ }
+
+ .newMessage {
+   background-color: #EBEFF8;
+   display: flex;
+   gap:15px;
+   color:grey;
+ }
+
+ .message-body {
+   height:100px;
+   margin: 0;
+   padding: 0;
+   display: flex;
+   align-content: flex-start;
+ }
+
+ .mail-compose input {
+   margin: 0;
+   padding: 0;
+    border: none;
+    width: 100%;
+    height: 100%;
+    outline: none;
  }
 
  .main-mail {
