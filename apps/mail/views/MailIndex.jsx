@@ -127,7 +127,6 @@ export function MailIndex() {
                     < MailActions filterBy={{ read }} onSetFilter={onSetFilter} sortBy={sortBy} onSortChange={onSortChange} />
                     {!params.mailId && <MailList mails={mails} onRemoveMail={onRemoveMail} isViewSent={isViewSent} />}
                 </div>
-                <span>you have <span>{getUnreadCount(mails)}</span> unread emails</span>
             </section>
 
         </section>
