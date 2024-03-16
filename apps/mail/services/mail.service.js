@@ -14,8 +14,7 @@ export const mailService = {
     getEmptyMail,
     getDefaultFilter,
     getDefaultSortBy,
-    addToTrash,
-    getTrash
+    editMail
 }
 
 _createMails()
@@ -46,25 +45,30 @@ function query(filterBy = getDefaultFilter(), sortBy = getDefaultSortBy()) {
         })
 }
 
+function getUnreadCount(mails){
+    mails = mails.filter(mail => mail.from === 'user@appsus.com')
+    return mails.filter(mail => mail.isRead === true).length
+}
+
 function get(mailId) {
     return storageService.get(MAIL_KEY, mailId)
 }
 
 
-function addToTrash(mailId) {
-    get(mailId)
-        .then(mail => storageService.post(TRASH_KEY, mail))
-        .then(remove(mailId))
-        .finally(console.log('i did it!'))
-        .catch(err => console.log('i couldnt do it so sorry', err))
-}
+// function addToTrash(mailId) {
+//     get(mailId)
+//         .then(mail => storageService.post(TRASH_KEY, mail))
+//         .then(remove(mailId))
+//         .finally(console.log('i did it!'))
+//         .catch(err => console.log('i couldnt do it so sorry', err))
+// }
 
-function getTrash() {
-    return storageService.query(TRASH_KEY)
-        .then(trash => {
-            return trash
-        })
-}
+// function getTrash() {
+//     return storageService.query(TRASH_KEY)
+//         .then(trash => {
+//             return trash
+//         })
+// }
 
 
 function remove(mailId) {
@@ -74,6 +78,10 @@ function remove(mailId) {
 function save(mail) {
     let newMail = _createMail(mail)
     return storageService.post(MAIL_KEY, newMail)
+}
+
+function editMail(mail) {
+    return storageService.put(MAIL_KEY, mail)
 }
 
 function getDefaultSortBy() {

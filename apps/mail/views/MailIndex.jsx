@@ -15,7 +15,6 @@ export function MailIndex() {
     const [isSent, setIsSent] = useState(false)
     const [sortBy, setSortBy] = useState(mailService.getDefaultSortBy())
     const [isViewSent, setIsViewSent] = useState(false)
-    const [isTrash, setIsTrash] = useState(false)
 
 
     const params = useParams()
@@ -23,19 +22,11 @@ export function MailIndex() {
     useEffect(() => {
         loadMails()
 
-    }, [isSent, filterBy, sortBy, isTrash])
+    }, [isSent, filterBy, sortBy])
 
-   
+
     function loadMails() {
-
-        if (isTrash) {
-            mailService
-                .getTrash()
-                .then(setMails)
-                .catch(err => console.log('Had issues with loading mails: ', err))
-            return
-        }
-
+        // console.log('i restarted!')
         mailService
             .query(filterBy, sortBy)
             .then(setMails)
@@ -136,7 +127,6 @@ export function MailIndex() {
                     < MailActions filterBy={{ read }} onSetFilter={onSetFilter} sortBy={sortBy} onSortChange={onSortChange} />
                     {!params.mailId && <MailList mails={mails} onRemoveMail={onRemoveMail} isViewSent={isViewSent} />}
                 </div>
-                <span>you have <span>{getUnreadCount(mails)}</span> unread emails</span>
             </section>
 
         </section>
