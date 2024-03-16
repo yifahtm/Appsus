@@ -27,7 +27,7 @@ export function MailActions({ filterBy, onSetFilter, sortBy, onSortChange }) {
     }
 
     function getArrow(value){
-        if (!sortByToEdit[value] || sortByToEdit[value] === 1) return '▼'
+        if (!sortBy[value] || sortBy[value] === 1) return '▼'
         else return '▲'
 
     }
