@@ -17,12 +17,12 @@ export function MailDetails() {
 
     function removeMail() {
         mailService.remove(params.mailId)
-        .then(() => {
-            navigate('/mail')
-        })
-        .catch((err) => {
-            console.log('Had issues removing mail', err)
-        })
+            .then(() => {
+                navigate('/mail')
+            })
+            .catch((err) => {
+                console.log('Had issues removing mail', err)
+            })
     }
 
     function readMail() {
@@ -56,19 +56,22 @@ export function MailDetails() {
 
     return (
         <div className="mail-display">
-            <h1>{mail.subject}</h1>
-            <h2>{mail.to}</h2>
-            <h3>{utilService.getFormattedDate(mail.sentAt)}</h3>
-            <h4>{utilService.elapsedTime(mail.sentAt)}</h4>
-            <p>{mail.body}</p>
-            <span className="material-symbols-outlined" onClick={() => removeMail(mail.id)}>
-                delete
-            </span>
-            <NavLink to="/mail">
-                <span className="material-symbols-outlined">
-                    arrow_back
+            <div class="display-title">
+                <h1>{mail.subject}</h1>
+                <span className="material-symbols-outlined" onClick={() => removeMail(mail.id)}>
+                    delete
                 </span>
-            </NavLink>
+                <NavLink to="/mail">
+                    <span className="material-symbols-outlined">
+                        arrow_back
+                    </span>
+                </NavLink>
+            </div>
+
+            <h2>{mail.to}</h2>  
+            <p>{mail.body}</p>
+            <small>{utilService.getFormattedDate(mail.sentAt)}</small>
+
         </div>
 
     )

@@ -23,7 +23,7 @@ export function MailList({ mails, onRemoveMail, isViewSent }) {
 
 
   return (
-    <ul className="mail-list clean-list">
+    <section className="mail-list">
       {mails.map(mail => (
         <div key={mail.id} className={getClassName(mail)}>
           <NavLink to={`/mail/${mail.id}`}> 
@@ -46,6 +46,6 @@ export function MailList({ mails, onRemoveMail, isViewSent }) {
           </div>
         </div>
       ))}
-    </ul>
+    </section>
   )
 }
