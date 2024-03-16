@@ -7,7 +7,7 @@ export function AppFooter() {
             <h3 className="logo footer-logo flex wrap">AppSUS<i className="fa-solid fa-shield-dog"></i></h3>
             <p>Presented by
                 <span>Yifaht Meir</span> & <span>Leanne Borowitz</span></p>
-            <small class="footer-rights">@All Rights Reserved 2024 - AppSUS.com</small>
+            <small className="footer-rights">@All Rights Reserved 2024 - AppSUS.com</small>
         </Link>
 
     </footer>
