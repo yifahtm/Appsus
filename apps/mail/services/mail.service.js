@@ -38,6 +38,11 @@ function query(filterBy = getDefaultFilter(), sortBy = getDefaultSortBy()) {
             if (filterBy.category === 'starred') {
                 mails = mails.filter(mail => mail.isStarred)
             }
+            // if (filterBy.category === 'delete') {
+            //     mails = mails.filter(mail => mail.DeletedAt === null)
+            // }else {
+            //     mails = mails.filter(mail => mail.DeletedAt !== null) 
+            // }
             if (sortBy.subject !== undefined) {
                 mails = mails.sort((m1, m2) => m1.subject.localeCompare(m2.subject) * sortBy.subject)
             }

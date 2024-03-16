@@ -16,15 +16,17 @@ export function MailIndex() {
     const [sortBy, setSortBy] = useState(mailService.getDefaultSortBy())
     const [isViewSent, setIsViewSent] = useState(false)
     const [isStarred, setIsStarred] = useState(false)
-
+    const [isTrash, setIsTrash] = useState(false)
+    const [isRemoved, setIsRemoved] = useState(false)
     const params = useParams()
 
     useEffect(() => {
         loadMails()
 
-    }, [isSent, filterBy, sortBy, isStarred])
+    }, [isSent, filterBy, sortBy, isStarred, isTrash, isRemoved])
 
     function loadMails() {
+        console.log('i restarted!!')
         mailService
             .query(filterBy, sortBy)
             .then(setMails)
@@ -33,16 +35,25 @@ export function MailIndex() {
             .finally(setIsStarred(false))
     }
 
+    console.log(mails)
 
-    function onRemoveMail(mailId) {
-        mailService.remove(mailId)
-            .then(() => {
-                setMails((prevMails) => prevMails.filter(mail => mail.id !== mailId))
-                console.log('i did it!')
-            })
-            .catch((err) => {
-                console.log('Had issues removing mail', err)
-            })
+    function onRemoveMail(mail) {
+        if (isTrash) {
+            mailService.remove(mail.id)
+                .then(() => {
+                    setMails((prevMails) => prevMails.filter(mail => mail.id !== mailId))
+                    console.log('i did it!')
+                })
+                .catch((err) => {
+                    console.log('Had issues removing mail', err)
+                })
+        }
+        let date = new Date()
+        mail.removedAt = date.getTime()
+        mailService.editMail(mail)
+        setIsRemoved(true)
+        // setMails()
+
     }
 
     function onSetFilter(fieldsToUpdate) {
@@ -59,10 +70,8 @@ export function MailIndex() {
     }
 
     function handelFilterChange(value) {
-        console.log(value)
         let field = 'category'
         setFilterBy(prevFilterBy => ({ ...prevFilterBy, [field]: value }))
-        console.log(filterBy)
     }
 
     function sendMail(newMail) {
@@ -84,10 +93,17 @@ export function MailIndex() {
         setIsOnCompose(false)
     }
 
+    function reset() {
+        setIsViewSent(false)
+        setIsTrash(false)
+        setIsRemoved(false)
+    }
+
     function getUnreadCount(mails) {
         if (!mails) return
         return mails.filter(mail => mail.isRead === true).length
     }
+
 
     const { search } = filterBy
     const { read } = filterBy
@@ -113,7 +129,7 @@ export function MailIndex() {
             <section className="main-mail">
                 <nav className="side-nav" >
                     <Link to="/mail/list">
-                        <div className="nav-icon" onClick={() => setIsViewSent(false)}>
+                        <div className="nav-icon" onClick={() => reset()}>
                             <span className="material-symbols-outlined"  >
                                 inbox
                             </span>
@@ -139,8 +155,8 @@ export function MailIndex() {
                         </span>
                         <h2>Draft</h2>
                     </div>
-                    <div className="nav-icon" onClick={() => handelFilterChange('delete')}>
-                        <span className="material-symbols-outlined">
+                    <div className="nav-icon" >
+                        <span className="material-symbols-outlined" onClick={() => setIsTrash(true)}>
                             delete
                         </span>
                         <h2>Trash</h2>
@@ -152,7 +168,7 @@ export function MailIndex() {
 
                 <div className='mail-section'>
                     < MailActions filterBy={{ read }} onSetFilter={onSetFilter} sortBy={sortBy} onSortChange={onSortChange} />
-                    {!params.mailId && <MailList mails={mails} onRemoveMail={onRemoveMail} isViewSent={isViewSent} setIsStarred={setIsStarred} />}
+                    {!params.mailId && <MailList mails={mails} onRemoveMail={onRemoveMail} isViewSent={isViewSent} setIsStarred={setIsStarred} isTrash={isTrash} />}
                     <Link to="/mail/mailId"></Link>
                     <Outlet />
                 </div>

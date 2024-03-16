@@ -3,13 +3,19 @@ const { Link, NavLink } = ReactRouterDOM
 import { MailPreview } from "./MailPreview.jsx"
 import { mailService } from '../services/mail.service.js'
 
-export function MailList({ mails, onRemoveMail, isViewSent, setIsStarred }) {
+export function MailList({ mails, onRemoveMail, isViewSent, setIsStarred, isTrash }) {
   if (!mails || !mails.length)
     return <div className="nothing-to-show">No mails to show</div>
 
   if (isViewSent) mails = mails.filter(mail => mail.from === 'user@appsus.com')
-  else mails = mails.filter(mail => mail.from !== 'user@appsus.com')
+  // else mails = mails.filter(mail => mail.from !== 'user@appsus.com')
+  if (isTrash) {
+    mails = mails.filter(mail => mail.removedAt !== null)
+  } else {
+    mails = mails.filter(mail => mail.removedAt === null)
+  }
 
+  console.log(isTrash)
   function getClassName(mail) {
     return mail.isRead ? 'mail-li read' : 'mail-li unread'
   }
@@ -28,14 +34,16 @@ export function MailList({ mails, onRemoveMail, isViewSent, setIsStarred }) {
   }
 
   function onStarClick(mail) {
-    mail.isStarred = !mail.isStarred
+    mail.isStarred === true ? mail.isStarred = false : mail.isStarred = true
     mailService.editMail(mail)
+    console.log(mail)
     setIsStarred(true)
 
   }
 
 
   return (
+
     <section className="mail-list">
       {mails.map(mail => (
         <div key={mail.id} className={getClassName(mail)}>
@@ -54,7 +62,7 @@ export function MailList({ mails, onRemoveMail, isViewSent, setIsStarred }) {
             <span className="material-symbols-outlined">
               mark_email_unread
             </span>
-            <span className="material-symbols-outlined" onClick={() => onRemoveMail(mail.id)}>
+            <span className="material-symbols-outlined" onClick={() => onRemoveMail(mail)}>
               delete
             </span>
 

@@ -246,9 +246,8 @@
  }
 
  .nothing-to-show {
-    background-color: yellow;
-    width: 100px;
-    height: 20px;
+    width: 100%;
+    height: 100%;
  }
 
  .read {
