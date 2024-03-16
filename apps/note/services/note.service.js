@@ -81,11 +81,11 @@ export const noteService = {
     remove,
     save,
     getEmptyNote,
-    getEmptyAllNote,
-    getEmptyImgNote,
-    getEmptyTodosNote,
-    getEmptyVideoNote,
-    getEmbedUrl,
+    // getEmptyAllNote,
+    // getEmptyImgNote,
+    // getEmptyTodosNote,
+    // getEmptyVideoNote,
+    // getEmbedUrl,
     getDefaultFilter,
     getFilterFromParams,
     _setNextPrevNoteId
@@ -152,73 +152,73 @@ function getEmptyNote(title = '', desc = '') {
     }
 }
 
-function getEmptyAllNote() {
-    return {
-        id: '',
-        createdAt: new Date(),
-        type: '',
-        isPinned: false,
-        style: {
-            backgroundColor: 'rgb(226, 246, 211)',
-        },
-        info: null,
-    }
-}
+// function getEmptyAllNote() {
+//     return {
+//         id: '',
+//         createdAt: new Date(),
+//         type: '',
+//         isPinned: false,
+//         style: {
+//             backgroundColor: 'rgb(226, 246, 211)',
+//         },
+//         info: null,
+//     }
+// }
 
-function getEmptyImgNote() {
-    return {
-        id: '',
-        createdAt: new Date(),
-        type: 'NoteImg',
-        isPinned: false,
-        style: {
-            backgroundColor: '#FFD59E',
-        },
-        info: {
-            url: '',
-            title: '',
-        },
-    }
-}
+// function getEmptyImgNote() {
+//     return {
+//         id: '',
+//         createdAt: new Date(),
+//         type: 'NoteImg',
+//         isPinned: false,
+//         style: {
+//             backgroundColor: '#FFD59E',
+//         },
+//         info: {
+//             url: '',
+//             title: '',
+//         },
+//     }
+// }
 
-function getEmptyVideoNote() {
-    return {
-        id: '',
-        createdAt: new Date(),
-        type: 'NoteVideo',
-        isPinned: false,
-        style: {
-            backgroundColor: 'rgb(246, 226, 221)',
-        },
-        info: {
-            src: '',
-            title: '',
-        },
-    }
-}
+// function getEmptyVideoNote() {
+//     return {
+//         id: '',
+//         createdAt: new Date(),
+//         type: 'NoteVideo',
+//         isPinned: false,
+//         style: {
+//             backgroundColor: 'rgb(246, 226, 221)',
+//         },
+//         info: {
+//             src: '',
+//             title: '',
+//         },
+//     }
+// }
 
-function getEmptyTodosNote() {
-    return {
-        id: '',
-        createdAt: new Date(),
-        type: 'NoteTodo',
-        isPinned: false,
-        style: {
-            backgroundColor: '#E6E6FA',
-        },
-        info: {
-            title: '',
-            todos: [{ txt: null, doneAt: null }],
-        },
-    }
-}
+// function getEmptyTodosNote() {
+//     return {
+//         id: '',
+//         createdAt: new Date(),
+//         type: 'NoteTodo',
+//         isPinned: false,
+//         style: {
+//             backgroundColor: '#E6E6FA',
+//         },
+//         info: {
+//             title: '',
+//             todos: [{ txt: null, doneAt: null }],
+//         },
+//     }
+// }
 
-function getEmbedUrl(url) {
-    const regExp =
-        /^(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/
-    const match = url.match(regExp)
-    return match && match[1] ? `https://www.youtube.com/embed/${match[1]}` : ''
-}
+// function getEmbedUrl(url) {
+//     const regExp =
+//         /^(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/
+//     const match = url.match(regExp)
+//     return match && match[1] ? `https://www.youtube.com/embed/${match[1]}` : ''
+// }
 
 
 function getDefaultFilter() {

@@ -1,14 +1,14 @@
 
 const { useState, useEffect } = React
 const { Link, Outlet, useSearchParams } = ReactRouterDOM
-const { useParams } = ReactRouter
+const { useNavigate, useParams } = ReactRouter
 
 import { NotePreview } from '../cmps/NotePreview.jsx'
+import { NoteAdd } from "../cmps/NoteAdd.jsx"
 import { NoteFilter } from './../cmps/NoteFilter.jsx'
 // import { NOteFilterDesc } from './../cmps/NoteFilterDesc.jsx'
 
 import { noteService } from './../services/note.service.js'
-import { NoteAdd } from "../cmps/NoteAdd.jsx"
 import { eventBusService, showErrorMsg, showSuccessMsg } from '../services/event-bus.service.js'
 
 export function NoteIndex() {
@@ -64,6 +64,11 @@ export function NoteIndex() {
     }
 
     function onUpdateNote(noteToUpdate) {
+        notes
+            .sort((note1, note2) =>
+                (note1.isPinned + '').localeCompare(note2.isPinned + '')
+            )
+            .reverse()
         noteService.save(noteToUpdate)
             .then((saved) => {
                 setNotes((prevNotes) => prevNotes.map((note) => note.id === saved.id ? saved : note))
