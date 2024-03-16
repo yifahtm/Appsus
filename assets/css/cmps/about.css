@@ -8,3 +8,22 @@
 .about img {
     width:300px;
 }
+
+.team {
+    width:300px;
+    margin-left: 50px;
+    margin-top: 50px;
+}
+
+.team img {
+    width: 100%;
+    height: 100%;
+    border-radius: 10%;
+}
+
+.img-team {
+    display: flex;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+}

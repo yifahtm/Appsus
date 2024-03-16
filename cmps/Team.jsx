@@ -10,6 +10,13 @@ export function Team(){
             the shared values of "fuck it, we ball". it is truly inspiring to see what such teamwork can accomplish.
             we hope you enjoy this app and all it has to offer. 
         </p>
+        <div className="img-team">
+          <div className="team">
+            <img src="./assets/img/me again.png"></img>
+          </div>
+        <div className="team"></div>  
+        <img src="./assets/img/yifaht.jpg"></img>
+        </div>
         </section>
     )
 }
