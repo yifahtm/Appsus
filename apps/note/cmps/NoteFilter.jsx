@@ -26,16 +26,19 @@ export function NoteFilter({ onSetFilter, filterBy }) {
     }
 
     return <section className="note-filter">
-        <form className="search-note flex justify-center" onSubmit={onFilter}>
+        <form className="flex justify-center" onSubmit={onFilter}>
             <label htmlFor="search"></label>
-            <input onChange={handleChange} type="search"
-                id="search"
-                name="title"
-                value={filterByToEdit.title}
-                placeholder="Search note..." />
-            <button title="Search"><span className="material-symbols-outlined">
-                search
-            </span></button>
+            <div className="input-search-container">
+                <button className="btn-note input-search-btn" title="Search"><span className="material-symbols-outlined">
+                    search
+                </span></button>
+                <input className="input-search" onChange={handleChange} type="search"
+                    id="search"
+                    name="title"
+                    value={filterByToEdit.title}
+                    placeholder="Search note..." />
+            </div>
+
         </form>
     </section >
 }

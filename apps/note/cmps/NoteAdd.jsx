@@ -21,9 +21,9 @@ export function NoteAdd({ addNote }) {
     }
 
     // const { title, txt } = newNote
-    return <div className="add-note flex justify-center">
+    return <div className="note-add flex justify-center">
         <form className="flex column" onSubmit={onAddNote}>
-            <input onClick={() => {
+            <input className="input-add" onClick={() => {
                 setIsShown(true)
             }}
                 placeholder={isShown ? "Title" : "New Note..."}
@@ -34,7 +34,7 @@ export function NoteAdd({ addNote }) {
                 value={newNote.title}
             />
             {isShown &&
-                <div><input
+                <div><input className="input-add"
                     placeholder="New note....."
                     type="text"
                     id="desc"
@@ -43,17 +43,29 @@ export function NoteAdd({ addNote }) {
                     value={newNote.desc}
                 />
                     <div className="note-add-actions flex ">
-                        <button title="Add image"><span className="material-symbols-outlined">
+                        <button className="btn-note" title="Add image"><span className="material-symbols-outlined">
                             image
                         </span></button>
-                        <button title="Add video"><span className="material-symbols-outlined">
+                        <button className="btn-note" title="Add video"><span className="material-symbols-outlined">
                             videocam
                         </span></button>
-                        <button title="Todo list"><span className="material-symbols-outlined">
+                        <button className="btn-note" title="Add Todo list"><span className="material-symbols-outlined">
                             select_check_box
                         </span></button>
+                        <button className="btn-note" title="Add audio"><span class="material-symbols-outlined">
+                            music_note
+                        </span></button>
+                        <button className="btn-note" title="Add scribble"><span class="material-symbols-outlined">
+                            brush
+                        </span></button>
+                        <button className="btn-note" title="Add map"><span class="material-symbols-outlined">
+                            pin_drop
+                        </span></button>
+                        <button className="btn-note" title="Add voice message"><span class="material-symbols-outlined">
+                            mic
+                        </span></button>
                     </div></div>}
-            <button title="Close" onClick={() => {
+            <button className="btn-note" title="Close" onClick={() => {
                 setIsShown(false)
             }}>closure</button>
         </form>

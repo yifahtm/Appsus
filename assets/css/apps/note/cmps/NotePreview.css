@@ -1,10 +1,10 @@
 .note-preview {
-    position: relative;
+    /* position: relative; */
     width: fit-content;
     /* max-width: 220px; */
     /* display: dense; */
     height: fit-content;
-    border-radius: .8em;
+    border-radius: .5em;
     transition: .218s;
     border: 1px solid lightgray;
     z-index: 1;
@@ -41,13 +41,13 @@
     margin: .5em 0;
 }
 
-.note-preview img {
+/* .note-preview img {
     z-index: -1;
     position: absolute;
     top: .5em;
     right: 1em;
     width: 40%;
-}
+} */
 
 .note-actions {
     opacity: 0;
