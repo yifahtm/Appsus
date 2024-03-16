@@ -6,7 +6,7 @@ export function MailActions({ filterBy, onSetFilter, sortBy, onSortChange }) {
 
     useEffect(() => {
         onSetFilter(filterByToEdit)
-    }, [filterByToEdit])
+    }, [filterByToEdit, sortByToEdit])
 
 
     function onFilter({ target }) {
@@ -19,9 +19,17 @@ export function MailActions({ filterBy, onSetFilter, sortBy, onSortChange }) {
     function handleSortChange(sortByKey) {
         if (sortBy[sortByKey] === 1) {
             onSortChange({ [sortByKey]: -1 })
+            setSortByToEdit(sortBy)
             return
         }
         onSortChange({ [sortByKey]: 1 })
+        setSortByToEdit(sortBy)
+    }
+
+    function getArrow(value){
+        if (!sortByToEdit[value] || sortByToEdit[value] === 1) return '▼'
+        else return '▲'
+
     }
 
 //'▲' : '▼';
@@ -35,12 +43,12 @@ export function MailActions({ filterBy, onSetFilter, sortBy, onSortChange }) {
                     <option value="unread">Unread</option>
                 </select>
             </label>
-            <button onClick={() => handleSortChange('date')}> ▼ Date
+            <button onClick={() => handleSortChange('date')}> <span>{getArrow('date')}</span> Date
                 {/* <span className="material-symbols-outlined">
                     expand_more
                 </span> */}
             </button>
-            <button onClick={() => handleSortChange('subject')}>▼ Subject 
+            <button onClick={() => handleSortChange('subject')}><span>{getArrow('subject')}</span> Subject 
                 {/* <span
                     className="material-symbols-outlined">
                     expand_more
