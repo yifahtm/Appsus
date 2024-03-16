@@ -53,9 +53,9 @@ export function MailIndex() {
         setSortBy(newSortBy)
     }
 
-    function setCategory(){
+    function setCategory() {
         let field = 'category'
-        setFilterBy(prevFilterBy => ({ ...prevFilterBy, [field]: null })) 
+        setFilterBy(prevFilterBy => ({ ...prevFilterBy, [field]: null }))
     }
 
     function handelFilterChange(value) {
@@ -121,7 +121,6 @@ export function MailIndex() {
                         </div>
                     </Link>
 
-
                     <div className="nav-icon">
                         <span onClick={() => handelFilterChange('starred')} className="material-symbols-outlined">
                             star
@@ -149,11 +148,13 @@ export function MailIndex() {
 
 
                 </nav>
-                <Outlet />
+
 
                 <div className='mail-section'>
                     < MailActions filterBy={{ read }} onSetFilter={onSetFilter} sortBy={sortBy} onSortChange={onSortChange} />
                     {!params.mailId && <MailList mails={mails} onRemoveMail={onRemoveMail} isViewSent={isViewSent} setIsStarred={setIsStarred} />}
+                    <Link to="/mail/mailId"></Link>
+                    <Outlet />
                 </div>
             </section>
 

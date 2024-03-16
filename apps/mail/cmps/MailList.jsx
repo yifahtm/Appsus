@@ -29,7 +29,6 @@ export function MailList({ mails, onRemoveMail, isViewSent, setIsStarred }) {
 
   function onStarClick(mail) {
     mail.isStarred = !mail.isStarred
-    console.log(mail)
     mailService.editMail(mail)
     setIsStarred(true)
 
