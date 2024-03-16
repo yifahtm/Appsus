@@ -24,7 +24,6 @@ export function MailCompose({ sendMail, onCloseCompose }) {
             <button onClick={onCloseCompose}>x</button>
             <form onSubmit={onSendMail}>
                 <div className="input-container">
-                    <label htmlFor="subject">subject</label>
                     <input
                         type="text"
                         id="subject"
@@ -36,7 +35,6 @@ export function MailCompose({ sendMail, onCloseCompose }) {
                 </div>
 
                 <div className="input-container">
-                    <label htmlFor="from">from</label>
                     <input
                         type="text"
                         id="from"
@@ -48,7 +46,6 @@ export function MailCompose({ sendMail, onCloseCompose }) {
                 </div>
 
                 <div className="input-container">
-                    <label htmlFor="to">to</label>
                     <input
                         type="email"
                         id="to"
@@ -63,7 +60,7 @@ export function MailCompose({ sendMail, onCloseCompose }) {
                     <input
                         type="text"
                         id="body"
-                        placeholder=" "
+                        placeholder=""
                         name="body"
                         onChange={handleInput}
                         value={body}

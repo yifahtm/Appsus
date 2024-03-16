@@ -17,24 +17,25 @@ export function MailFilter({ filterBy, onSetFilter }) {
         setFilterByToEdit(prevFilterBy => ({ ...prevFilterBy, [field]: value }))
     }
 
-    let {search } = filterByToEdit
+    let { search } = filterByToEdit
     return (
-        <div>
-        <form className="search" onSubmit={onFilter}>
-            {/* <label htmlFor="search">
+        <div class="filter">
+            <form className="search" onSubmit={onFilter}>
+                <button>
+                    <span className="material-symbols-outlined">
+                        search
+                    </span>
+                </button>
+                {/* <label htmlFor="search">
             </label> */}
-            <input type="text"
-                id="search"
-                name="search"
-                value={search}
-                onChange={handleChange}
-                placeholder="search" />
-            <button>
-                <span className="material-symbols-outlined">
-                    search
-                </span>
-            </button>
-        </form>
+                <input type="text"
+                    id="search"
+                    name="search"
+                    value={search}
+                    onChange={handleChange}
+                    placeholder="search" />
+
+            </form>
         </div>
     )
 }

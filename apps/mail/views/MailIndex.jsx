@@ -103,22 +103,40 @@ export function MailIndex() {
             <section className="main-mail">
                 <nav className="side-nav" >
                     <Link to="/mail/list">
-                        <span className="material-symbols-outlined" onClick={() => setIsViewSent(false)} >
-                            inbox
-                        </span>
+                        <div className="nav-icon" onClick={() => setIsViewSent(false)}>
+                            <span className="material-symbols-outlined"  >
+                                inbox
+                            </span>
+                            <h2>Inbox</h2>
+                        </div>
                     </Link>
-                    <span className="material-symbols-outlined">
-                        star
-                    </span>
-                    <span onClick={() => setIsViewSent(true)} className="material-symbols-outlined">
-                        send
-                    </span>
-                    <span className="material-symbols-outlined">
-                        draft
-                    </span>
-                    <span className="material-symbols-outlined" onClick={() => setIsTrash(true)}>
-                        delete
-                    </span>
+
+           
+                        <div className="nav-icon">
+                            <span className="material-symbols-outlined">
+                                star
+                            </span>
+                            <h2>Starred</h2>
+                        </div>
+                        <div className="nav-icon" onClick={() => setIsViewSent(true)}>
+                            <span className="material-symbols-outlined">
+                                send
+                            </span>
+                            <h2>Sent</h2>
+                        </div>
+                        <div className="nav-icon" >
+                            <span className="material-symbols-outlined">
+                                draft
+                            </span>
+                            <h2>Draft</h2>
+                        </div>
+                        <div className="nav-icon" >
+                            <span className="material-symbols-outlined" onClick={() => setIsTrash(true)}>
+                                delete
+                            </span>
+                            <h2>Trash</h2>
+                        </div>
+            
 
                 </nav>
                 <Outlet />

@@ -25,14 +25,14 @@ export function MailList({ mails, onRemoveMail, isViewSent }) {
   return (
     <ul className="mail-list clean-list">
       {mails.map(mail => (
-        <li key={mail.id} className={getClassName(mail)}>
+        <div key={mail.id} className={getClassName(mail)}>
           <NavLink to={`/mail/${mail.id}`}> 
           <span className="material-symbols-outlined">
               star
             </span>
-            <MailPreview mail={mail} />
+            <h3>{mail.subject}</h3>
           </NavLink>
-          <div className="mail-actions">
+          <div className="mail-action">
            
             <span className="material-symbols-outlined">
               mark_email_unread
@@ -44,7 +44,7 @@ export function MailList({ mails, onRemoveMail, isViewSent }) {
               {formatDate(mail.sentAt)}
             </span>
           </div>
-        </li>
+        </div>
       ))}
     </ul>
   )
