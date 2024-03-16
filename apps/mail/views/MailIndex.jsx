@@ -15,7 +15,7 @@ export function MailIndex() {
     const [isSent, setIsSent] = useState(false)
     const [sortBy, setSortBy] = useState(mailService.getDefaultSortBy())
     const [isViewSent, setIsViewSent] = useState(false)
-
+    const [isTrash, setIsTrash] = useState(false)
 
 
     const params = useParams()
@@ -23,9 +23,19 @@ export function MailIndex() {
     useEffect(() => {
         loadMails()
 
-    }, [isSent, filterBy, sortBy])
-    // //filter by in the empty array
+    }, [isSent, filterBy, sortBy, isTrash])
+
+
     function loadMails() {
+
+        if (isTrash) {
+            mailService
+                .getTrash()
+                .then(setMails)
+                .catch(err => console.log('Had issues with loading mails: ', err))
+            return
+        }
+
         mailService
             .query(filterBy, sortBy)
             .then(setMails)
@@ -33,14 +43,15 @@ export function MailIndex() {
             .finally(setIsSent(false))
     }
 
+
     function onRemoveMail(mailId) {
-        mailService
-            .remove(mailId)
+        mailService.remove(mailId)
             .then(() => {
-                setMails(prevMails => prevMails.filter(mail => mail.id !== mailId))
+                setMails((prevMails) => prevMails.filter(mail => mail.id !== mailId))
+                console.log('i did it!')
             })
-            .catch(err => {
-                console.log('Has issues with removing mail', err)
+            .catch((err) => {
+                console.log('Had issues removing mail', err)
             })
     }
 
@@ -48,9 +59,8 @@ export function MailIndex() {
         setFilterBy(prevFilter => ({ ...prevFilter, ...fieldsToUpdate }))
     }
 
-    function handleSortChange(updatedSort) {
-        setSortBy(updatedSort)
-        console.log(sortBy)
+    function onSortChange(newSortBy){
+        setSortBy(newSortBy)
     }
 
 
@@ -102,7 +112,7 @@ export function MailIndex() {
             <section className="main-mail">
                 <nav className="side-nav" >
                     <Link to="/mail/list">
-                        <span className="material-symbols-outlined" onClick={() => setIsViewSent(false)}>
+                        <span className="material-symbols-outlined" onClick={() => setIsViewSent(false)} >
                             inbox
                         </span>
                     </Link>
@@ -115,7 +125,7 @@ export function MailIndex() {
                     <span className="material-symbols-outlined">
                         draft
                     </span>
-                    <span className="material-symbols-outlined">
+                    <span className="material-symbols-outlined" onClick={() => setIsTrash(true)}>
                         delete
                     </span>
 
@@ -123,7 +133,7 @@ export function MailIndex() {
                 <Outlet />
 
                 <div className='mail-section'>
-                    < MailActions filterBy={{ read }} onSetFilter={onSetFilter} sortBy={sortBy} handleSortChange={handleSortChange} />
+                    < MailActions filterBy={{ read }} onSetFilter={onSetFilter} sortBy={sortBy} onSortChange={onSortChange} />
                     {!params.mailId && <MailList mails={mails} onRemoveMail={onRemoveMail} isViewSent={isViewSent} />}
                 </div>
                 <span>you have <span>{getUnreadCount(mails)}</span> unread emails</span>

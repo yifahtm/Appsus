@@ -12,16 +12,23 @@ export function MailDetails() {
     const params = useParams()
     const navigate = useNavigate()
 
+    readMail()
+
     function removeMail() {
         mailService.remove(params.mailId)
             .then(navigate('/mail'))
+    }
+
+    function readMail() {
+        if (!mail) return
+        if (!mail.isRead) mail.isRead = true
     }
 
     useEffect(() => {
         loadMail()
     }, [params.mailId])
 
-    if (mail) console.log(mail.isRead)
+    // if (mail) console.log(mail.isRead)
 
     function loadMail() {
         setIsLoading(true)
@@ -43,7 +50,7 @@ export function MailDetails() {
             <h2>{mail.to}</h2>
             <p>{mail.body}</p>
             <span className="material-symbols-outlined" onClick={() => removeMail(mail.id)}>
-              delete
+                delete
             </span>
             <Link to="/mail">
                 <span className="material-symbols-outlined">

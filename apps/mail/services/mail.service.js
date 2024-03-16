@@ -4,6 +4,7 @@ import { storageService } from '../../../services/async-storage.service.js'
 // import { storageService } from '.../se'
 
 const MAIL_KEY = 'mailDB'
+const TRASH_KEY = 'trashDB'
 
 export const mailService = {
     query,
@@ -12,7 +13,9 @@ export const mailService = {
     save,
     getEmptyMail,
     getDefaultFilter,
-    getDefaultSortBy
+    getDefaultSortBy,
+    addToTrash,
+    getTrash
 }
 
 _createMails()
@@ -34,8 +37,7 @@ function query(filterBy = getDefaultFilter(), sortBy = getDefaultSortBy()) {
                 mails = mails.filter(mail => !mail.isRead)
             }
             if (sortBy.subject !== undefined) {
-                mails = mails.sort((m1, m2) => m1.subject.localeCompare(m2.subject))
-                // * gSortBy
+                mails = mails.sort((m1, m2) => m1.subject.localeCompare(m2.subject) * sortBy.subject)
             }
 
             return mails
@@ -44,6 +46,22 @@ function query(filterBy = getDefaultFilter(), sortBy = getDefaultSortBy()) {
 
 function get(mailId) {
     return storageService.get(MAIL_KEY, mailId)
+}
+
+
+function addToTrash(mailId) {
+    get(mailId)
+        .then(mail => storageService.post(TRASH_KEY, mail))
+        .then(remove(mailId))
+        .finally(console.log('i did it!'))
+        .catch(err => console.log('i couldnt do it so sorry', err))
+}
+
+function getTrash() {
+    return storageService.query(TRASH_KEY)
+        .then(trash => {
+            return trash
+        })
 }
 
 

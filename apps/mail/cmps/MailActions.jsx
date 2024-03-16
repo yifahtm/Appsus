@@ -1,6 +1,6 @@
 const { useState, useEffect } = React
 
-export function MailActions({ filterBy, onSetFilter, sortBy, handleSortChange }) {
+export function MailActions({ filterBy, onSetFilter, sortBy, onSortChange }) {
     const [filterByToEdit, setFilterByToEdit] = useState(filterBy)
     const [sortByToEdit, setSortByToEdit] = useState(sortBy)
 
@@ -16,20 +16,15 @@ export function MailActions({ filterBy, onSetFilter, sortBy, handleSortChange })
     }
 
 
-    function onSetSortBy({ target }) {
-        let { value } = target
-        if (!value) return
-        console.log(value)
-        // if (sortByToEdit.value) sortByToEdit.value === 1 ? -1 : 1
-        setSortByToEdit(prevSortBy => ({ ...prevSortBy, [value]: 1 }))
-        handleSortChange(sortByToEdit)
+    function handleSortChange(sortByKey) {
+        if (sortBy[sortByKey] === 1) {
+            onSortChange({ [sortByKey]: -1 })
+            return
+        }
+        onSortChange({ [sortByKey]: 1 })
     }
 
-    function onChangeDir({ target }) {
-        //    var newDir = dir === -1 ? 1 : -1
-        //    setDir(newDir)
-        //    console.log(dir)
-    }
+
 
     return (
         <section className="mail-actions">
@@ -40,12 +35,12 @@ export function MailActions({ filterBy, onSetFilter, sortBy, handleSortChange })
                     <option value="unread">Unread</option>
                 </select>
             </label>
-            <button value="date" onClick={onSetSortBy}>Date
+            <button onClick={() => handleSortChange('date')}>Date
                 {/* <span className="material-symbols-outlined">
                     expand_more
                 </span> */}
             </button>
-            <button value="subject" onClick={onSetSortBy}>Subject
+            <button onClick={() => handleSortChange('subject')}>Subject
                 {/* <span
                     className="material-symbols-outlined">
                     expand_more
