@@ -19,6 +19,7 @@ const gNotes = [
         }
     },
     {
+
         id: 'n102',
         createdAt: 1112222,
         type: 'NoteImg',
@@ -40,11 +41,37 @@ const gNotes = [
         info: {
             title: 'Get my stuff together',
             todos: [
-                { desc: 'Driving license', doneAt: null },
-                { desc: 'Coding power', doneAt: 187111111 }
+                {
+                    id: utilService.makeId(),
+                    desc: 'Call the dentist',
+                    doneAt: null
+                },
+                {
+                    id: utilService.makeId(),
+                    desc: 'listen to better music',
+                    doneAt: null,
+                },
+                {
+                    id: utilService.makeId(),
+                    desc: 'find out who framed Roger Rabbit?',
+                    doneAt: null,
+                },
             ]
         }
-    }
+    },
+    {
+        id: 'n104',
+        createdAt: 1112222,
+        type: 'NoteVideo',
+        isPinned: false,
+        style: {
+            backgroundColor: 'rgb(211, 191, 219)',
+        },
+        info: {
+            src: 'https://www.youtube.com/embed/jfKfPfyJRdk',
+            title: 'Muppet show',
+        },
+    },
 ]
 _createNotes()
 
@@ -54,6 +81,11 @@ export const noteService = {
     remove,
     save,
     getEmptyNote,
+    getEmptyAllNote,
+    getEmptyImgNote,
+    getEmptyTodosNote,
+    getEmptyVideoNote,
+    getEmbedUrl,
     getDefaultFilter,
     getFilterFromParams,
     _setNextPrevNoteId
@@ -89,7 +121,6 @@ function query(filterBy = getDefaultFilter()) {
 function get(noteId) {
     return storageService.get(NOTE_KEY, noteId)
         .then(note => _setNextPrevNoteId(note))
-    // return axios.get(CAR_KEY, carId)
 }
 
 function remove(noteId) {
@@ -107,8 +138,88 @@ function save(note) {
 }
 
 function getEmptyNote(title = '', desc = '') {
-    return { title, desc }
+    return {
+        createdAt: new Date(),
+        type: 'NoteTxt',
+        isPinned: false,
+        style: {
+            backgroundColor: '#FFD59E',
+        },
+        info: {
+            title,
+            desc,
+        },
+    }
 }
+
+function getEmptyAllNote() {
+    return {
+        id: '',
+        createdAt: new Date(),
+        type: '',
+        isPinned: false,
+        style: {
+            backgroundColor: 'rgb(226, 246, 211)',
+        },
+        info: null,
+    }
+}
+
+function getEmptyImgNote() {
+    return {
+        id: '',
+        createdAt: new Date(),
+        type: 'NoteImg',
+        isPinned: false,
+        style: {
+            backgroundColor: '#FFD59E',
+        },
+        info: {
+            url: '',
+            title: '',
+        },
+    }
+}
+
+function getEmptyVideoNote() {
+    return {
+        id: '',
+        createdAt: new Date(),
+        type: 'NoteVideo',
+        isPinned: false,
+        style: {
+            backgroundColor: 'rgb(246, 226, 221)',
+        },
+        info: {
+            src: '',
+            title: '',
+        },
+    }
+}
+
+function getEmptyTodosNote() {
+    return {
+        id: '',
+        createdAt: new Date(),
+        type: 'NoteTodo',
+        isPinned: false,
+        style: {
+            backgroundColor: '#E6E6FA',
+        },
+        info: {
+            title: '',
+            todos: [{ txt: null, doneAt: null }],
+        },
+    }
+}
+
+function getEmbedUrl(url) {
+    const regExp =
+        /^(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/
+    const match = url.match(regExp)
+    return match && match[1] ? `https://www.youtube.com/embed/${match[1]}` : ''
+}
+
 
 function getDefaultFilter() {
     return { title: '', createdAt: 50, desc: '' }
@@ -127,9 +238,6 @@ function _createNotes() {
     let notes = utilService.loadFromStorage(NOTE_KEY)
     if (!notes || !notes.length) {
         notes = gNotes
-        // notes.push(_createNote('audu', 300))
-        // notes.push(_createNote('fiak', 120))
-        // notes.push(_createNote('subali', 50))
         utilService.saveToStorage(NOTE_KEY, notes)
     }
 }
