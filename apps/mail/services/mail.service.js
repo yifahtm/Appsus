@@ -153,14 +153,14 @@ function _createMails() {
         },
         {
             id: utilService.makeId(),
-            subject: 'Ummm',
-            body: 'How do i use this?',
+            subject: '  Hes behind me',
+            body: 'help help help help help help help help',
             isRead: false,
-            isStarred: false,
+            isStarred: true,
             sentAt: 1647478755000,
             removedAt: null,
             from: 'user@appsus.com',
-            to: 'dingo@momo.com'
+            to: 'puki@momo.com'
         },
         {
             id: utilService.makeId(),
@@ -177,6 +177,28 @@ function _createMails() {
             id: utilService.makeId(),
             subject: 'Am trying to see summ',
             body: 'did this sorting shit work?',
+            isRead: false,
+            isStarred: true,
+            sentAt: 1685001600000,
+            removedAt: null,
+            from: 'lolo@haha.com',
+            to: 'user@appsus.com'
+        },
+        {
+            id: utilService.makeId(),
+            subject: 'But wait... ',
+            body: 'I can sort things bitches!!!!!!',
+            isRead: false,
+            isStarred: true,
+            sentAt: 1685001600000,
+            removedAt: null,
+            from: 'lolo@haha.com',
+            to: 'user@appsus.com'
+        },
+        {
+            id: utilService.makeId(),
+            subject: 'Making fake emails',
+            body: 'Its not easy alright... ',
             isRead: false,
             isStarred: true,
             sentAt: 1685001600000,
