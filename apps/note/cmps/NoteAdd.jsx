@@ -54,13 +54,13 @@ export function NoteAdd({
                         cmpType={cmpType}
                     /> */}
                     <div className="note-add-actions flex ">
-                        <button className="btn-note" onClick={() => setCmpType('NoteImg')} title="Add image"><span className="material-symbols-outlined">
+                        <button className="btn-note" onclick={() => setCmpType('NoteImg')} title="Add image"><span className="material-symbols-outlined">
                             image
                         </span></button>
-                        <button className="btn-note" onClick={() => setCmpType('NoteVideo')} title="Add video"><span className="material-symbols-outlined">
+                        <button className="btn-note" onclick={() => setCmpType('NoteVideo')} title="Add video"><span className="material-symbols-outlined">
                             videocam
                         </span></button>
-                        <button className="btn-note" onClick={() => setCmpType('NoteTodo')} title="Add Todo list"><span className="material-symbols-outlined">
+                        <button className="btn-note" onclick={() => setCmpType('NoteTodo')} title="Add Todo list"><span className="material-symbols-outlined">
                             select_check_box
                         </span></button>
                     </div></div>}

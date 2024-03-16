@@ -81,15 +81,10 @@ export function NoteIndex() {
         noteService.save(duplicateNote)
             .then((saved) => {
                 setNotes((prevNotes) => [saved, ...prevNotes])
-
                 showSuccessMsg('Note copied')
             })
             .catch(err => showErrorMsg('could not copy', err))
     }
-
-    // function onChangeStyle(newStyle) {
-    //     setPreviewStyle((prevStyle) => ({ ...prevStyle, ...newStyle }))
-    // }
 
     const { title, createdAt, desc } = filterBy
     if (!notes) return <div>loading...</div>

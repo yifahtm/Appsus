@@ -19,7 +19,7 @@ export function NoteTodos({ note }) {
                         // checked={todo.doneAt ? true : false}
                         onChange={() => onChangeTodo(todo)} type="checkbox" />
                     <label htmlFor="todo">
-                        {todo.txt}
+                        {todo.desc}
                     </label>
 
                 </li>)

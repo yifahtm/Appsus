@@ -39,7 +39,6 @@ export function NotePreview({ note, onRemoveNote, onUpdateNote, onDuplicate }) {
         <button title={isPinned ? "Unpin" : "Pin"} className="btn-note note-actions pin" onClick={() => {
             onTogglePin()
             setIsPinned((prevIsPin) => !prevIsPin)
-            // onTogglePin(isPinned)
         }}><span className="material-symbols-outlined">
                 keep
             </span></button>
@@ -78,16 +77,16 @@ export function NotePreview({ note, onRemoveNote, onUpdateNote, onDuplicate }) {
             <button className="btn-note" onClick={() => setCmpType('NoteTodo')} title="Add Todo list"><span className="material-symbols-outlined">
                 select_check_box
             </span></button>
-            <button className="btn-note" onClick={() => setCmpType('NoteAudio')} title="Add audio"><span class="material-symbols-outlined">
+            <button className="btn-note" onClick={() => setCmpType('NoteAudio')} title="Add audio"><span className="material-symbols-outlined">
                 music_note
             </span></button>
-            <button className="btn-note" onClick={() => setCmpType('NoteCanvas')} title="Add scribble"><span class="material-symbols-outlined">
+            <button className="btn-note" onClick={() => setCmpType('NoteCanvas')} title="Add scribble"><span className="material-symbols-outlined">
                 brush
             </span></button>
-            <button className="btn-note" onClick={() => setCmpType('NoteMap')} title="Add map"><span class="material-symbols-outlined">
+            <button className="btn-note" onClick={() => setCmpType('NoteMap')} title="Add map"><span className="material-symbols-outlined">
                 pin_drop
             </span></button>
-            <button className="btn-note" onClick={() => setCmpType('NoteRecording')} title="Add voice message"><span class="material-symbols-outlined">
+            <button className="btn-note" onClick={() => setCmpType('NoteRecording')} title="Add voice message"><span className="material-symbols-outlined">
                 mic
             </span></button>
             <button className="btn-note" title="Copy note" onClick={() => onDuplicate(note)}><span className="material-symbols-outlined">
