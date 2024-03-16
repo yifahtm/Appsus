@@ -194,6 +194,7 @@
     width: 100%;
  }
 
+
  .mail-li {
     border-bottom: solid 1px whitesmoke;
     display: flex;
@@ -201,7 +202,7 @@
     align-items: center;
     border-bottom: 1px solid whitesmoke;
     cursor: pointer;
-    gap: 30px;
+    gap: 50px;
  }
 
  .mail-actions {
@@ -237,6 +238,10 @@
  }
 
  .display-title {
+   display: flex;
+ }
+
+ .list-title {
    display: flex;
  }
 

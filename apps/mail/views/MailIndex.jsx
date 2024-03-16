@@ -15,16 +15,16 @@ export function MailIndex() {
     const [isSent, setIsSent] = useState(false)
     const [sortBy, setSortBy] = useState(mailService.getDefaultSortBy())
     const [isViewSent, setIsViewSent] = useState(false)
-
+    const [isStarred, setIsStarred] = useState(false)
 
     const params = useParams()
 
     useEffect(() => {
         loadMails()
 
-    }, [isSent, filterBy, sortBy])
+    }, [isSent, filterBy, sortBy, isStarred])
 
-
+    console.log(mails)
     function loadMails() {
         // console.log('i restarted!')
         mailService
@@ -32,6 +32,7 @@ export function MailIndex() {
             .then(setMails)
             .catch(err => console.log('Had issues with loading mails: ', err))
             .finally(setIsSent(false))
+            .finally(setIsStarred(false))
     }
 
 
@@ -111,39 +112,39 @@ export function MailIndex() {
                         </div>
                     </Link>
 
-           
-                        <div className="nav-icon">
-                            <span className="material-symbols-outlined">
-                                star
-                            </span>
-                            <h2>Starred</h2>
-                        </div>
-                        <div className="nav-icon" onClick={() => setIsViewSent(true)}>
-                            <span className="material-symbols-outlined">
-                                send
-                            </span>
-                            <h2>Sent</h2>
-                        </div>
-                        <div className="nav-icon" >
-                            <span className="material-symbols-outlined">
-                                draft
-                            </span>
-                            <h2>Draft</h2>
-                        </div>
-                        <div className="nav-icon" >
-                            <span className="material-symbols-outlined" onClick={() => setIsTrash(true)}>
-                                delete
-                            </span>
-                            <h2>Trash</h2>
-                        </div>
-            
+
+                    <div className="nav-icon">
+                        <span className="material-symbols-outlined">
+                            star
+                        </span>
+                        <h2>Starred</h2>
+                    </div>
+                    <div className="nav-icon" onClick={() => setIsViewSent(true)}>
+                        <span className="material-symbols-outlined">
+                            send
+                        </span>
+                        <h2>Sent</h2>
+                    </div>
+                    <div className="nav-icon" >
+                        <span className="material-symbols-outlined">
+                            draft
+                        </span>
+                        <h2>Draft</h2>
+                    </div>
+                    <div className="nav-icon" >
+                        <span className="material-symbols-outlined" onClick={() => setIsTrash(true)}>
+                            delete
+                        </span>
+                        <h2>Trash</h2>
+                    </div>
+
 
                 </nav>
                 <Outlet />
 
                 <div className='mail-section'>
                     < MailActions filterBy={{ read }} onSetFilter={onSetFilter} sortBy={sortBy} onSortChange={onSortChange} />
-                    {!params.mailId && <MailList mails={mails} onRemoveMail={onRemoveMail} isViewSent={isViewSent} />}
+                    {!params.mailId && <MailList mails={mails} onRemoveMail={onRemoveMail} isViewSent={isViewSent} setIsStarred={setIsStarred} />}
                 </div>
             </section>
 

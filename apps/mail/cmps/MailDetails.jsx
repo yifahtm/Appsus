@@ -56,7 +56,7 @@ export function MailDetails() {
 
     return (
         <div className="mail-display">
-            <div class="display-title">
+            <div className="display-title">
                 <h1>{mail.subject}</h1>
                 <span className="material-symbols-outlined" onClick={() => removeMail(mail.id)}>
                     delete

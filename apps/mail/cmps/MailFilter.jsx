@@ -19,7 +19,7 @@ export function MailFilter({ filterBy, onSetFilter }) {
 
     let { search } = filterByToEdit
     return (
-        <div class="filter">
+        <div className="filter">
             <form className="search" onSubmit={onFilter}>
                 <button>
                     <span className="material-symbols-outlined">
