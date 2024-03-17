@@ -25,7 +25,7 @@ const gNotes = [
         type: 'NoteImg',
         isPinned: false,
         info: {
-            url: 'http://some-img/me',
+            url: 'assets/img/honda.jpg',
             title: 'Bobi and Me',
             desc: 'Fullstack Me Baby!'
         },
@@ -42,17 +42,17 @@ const gNotes = [
             title: 'Get my stuff together',
             todos: [
                 {
-                    id: utilService.makeId(),
+                    id: 't103',
                     desc: 'Call the dentist',
                     doneAt: null
                 },
                 {
-                    id: utilService.makeId(),
+                    id: 't104',
                     desc: 'listen to better music',
                     doneAt: null,
                 },
                 {
-                    id: utilService.makeId(),
+                    id: 't105',
                     desc: 'find out who framed Roger Rabbit?',
                     doneAt: null,
                 },
@@ -145,10 +145,9 @@ function getEmptyNote(title = '', desc = '') {
         style: {
             backgroundColor: '#FFD59E',
         },
-        info: {
-            title,
-            desc,
-        },
+        title: 'Bobi and Me',
+        desc,
+
     }
 }
 

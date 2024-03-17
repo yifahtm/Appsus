@@ -96,7 +96,7 @@ export function NoteEdit({ noteId, onUpdateNote, isEditing, setIsEditing }) {
                     />
                 </div>
 
-                <button className="btn-note" onClick={() => setIsEditing(false)}>Save</button>
+                <button className="btn-note" >Save</button>
             </form>
         </section>
     )

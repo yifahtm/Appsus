@@ -1,23 +1,20 @@
 
 const { useState, useEffect } = React
-const { Link, Outlet, useSearchParams } = ReactRouterDOM
+const { Outlet, useSearchParams } = ReactRouterDOM
 const { useNavigate, useParams } = ReactRouter
 
 import { NotePreview } from '../cmps/NotePreview.jsx'
 import { NoteAdd } from "../cmps/NoteAdd.jsx"
 import { NoteFilter } from './../cmps/NoteFilter.jsx'
-// import { NOteFilterDesc } from './../cmps/NoteFilterDesc.jsx'
 
 import { noteService } from './../services/note.service.js'
-import { eventBusService, showErrorMsg, showSuccessMsg } from '../services/event-bus.service.js'
+import { showErrorMsg, showSuccessMsg } from '../services/event-bus.service.js'
 
 export function NoteIndex() {
     const [notes, setNotes] = useState(null)
     const { noteId } = useParams()
     const [searchParams, setSearchParams] = useSearchParams()
-    // const [previewStyle, setPreviewStyle] = useState({ backgroundColor: 'white' })
     const [filterBy, setFilterBy] = useState(noteService.getFilterFromParams(searchParams))
-    // const [isPinned, setIsPinned] = useState(note.isPinned)
 
     useEffect(() => {
         setSearchParams(filterBy)
@@ -33,7 +30,6 @@ export function NoteIndex() {
     function loadNotes() {
         noteService.query(filterBy)
             .then((notes) => {
-                console.log(notes)
                 setNotes(notes)
             })
     }
@@ -45,7 +41,7 @@ export function NoteIndex() {
                 showSuccessMsg(`Note removed successfully (${noteId})`)
             })
             .catch((err) => {
-                console.log('Had issues removing note', err)
+                console.error('Had issues removing note', err)
                 showErrorMsg(`Could not remove note #(${noteId})`)
             })
     }
@@ -58,7 +54,7 @@ export function NoteIndex() {
             })
 
             .catch(err => {
-                console.log(err)
+                console.error(err)
                 showErrorMsg('Could not save note', err)
             })
     }
@@ -93,15 +89,8 @@ export function NoteIndex() {
         <NoteFilter
             onSetFilter={onSetFilter}
             filterBy={filterBy} />
-
-        {/* <NoteFilterDesc
-            onSetFilter={onSetFilter}
-            filterBy={{ desc }} /> */}
-        {/* {notes.find(note=> {return note.id===noteId */}
         <NoteAdd
             addNote={addNote}
-        // onUpdateNote={onUpdateNote}
-        // note={note}
         />
         {/* )} */}
         {!notes || !notes.length && <p>No notes to display.</p>}
@@ -112,7 +101,6 @@ export function NoteIndex() {
                         <li key={note.id}>
                             {/* <Link to={`/note/edit/${note.id}`}> */}
                             <NotePreview
-                                // setIsEdit={setIsEdit}
                                 note={note}
                                 onRemoveNote={onRemoveNote}
                                 onUpdateNote={onUpdateNote}

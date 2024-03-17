@@ -11,8 +11,8 @@ export function NoteTxt({ note, onUpdateNote }) {
             {!isEditing && (
                 <div onClick={() => setIsEditing(prevIsEdit => !prevIsEdit)}>
                     <React.Fragment>
-                        <h2>{note.info.title}</h2>
-                        <h2 className="note-content">{note.info.desc}</h2>
+                        <h2>{note.title}</h2>
+                        <h2 className="note-content">{note.desc}</h2>
                     </React.Fragment>
                 </div>
             )}
