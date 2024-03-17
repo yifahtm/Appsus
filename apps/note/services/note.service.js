@@ -13,10 +13,8 @@ const gNotes = [
         style: {
             backgroundColor: '#00d'
         },
-        info: {
-            title: 'Bobi and Me',
-            desc: 'Fullstack Me Baby!'
-        }
+        title: 'Bobi and Me',
+        desc: 'Fullstack Me Baby!'
     },
     {
 
